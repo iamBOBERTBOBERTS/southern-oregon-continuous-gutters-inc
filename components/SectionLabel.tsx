@@ -1,0 +1,11 @@
+type SectionLabelProps = {
+  children: string;
+};
+
+export function SectionLabel({ children }: SectionLabelProps) {
+  return (
+    <p className="text-sm font-bold uppercase tracking-[0.22em] text-rain">
+      {children}
+    </p>
+  );
+}
