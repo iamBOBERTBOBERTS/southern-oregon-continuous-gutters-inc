@@ -45,6 +45,62 @@ body::before {
   pointer-events: none;
 }
 
+.hero-stage {
+  background:
+    radial-gradient(circle at 74% 28%, rgba(66, 165, 213, 0.22), transparent 30%),
+    radial-gradient(circle at 18% 12%, rgba(243, 173, 69, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(5, 6, 7, 0.82), rgba(5, 6, 7, 0.96) 68%, #050607);
+}
+
+.storm-orbit {
+  position: absolute;
+  right: -18rem;
+  top: -22rem;
+  width: 58rem;
+  height: 58rem;
+  border: 1px solid rgba(66, 165, 213, 0.16);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(66, 165, 213, 0.18), transparent 48%),
+    conic-gradient(from 128deg, transparent, rgba(199, 208, 216, 0.14), transparent, rgba(66, 165, 213, 0.2), transparent);
+  filter: blur(0.2px);
+  opacity: 0.72;
+  animation: slow-rotate 28s linear infinite;
+}
+
+.rain-field,
+.rain-field::before,
+.rain-field::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.rain-field {
+  overflow: hidden;
+  opacity: 0.44;
+  mask-image: linear-gradient(180deg, black, transparent 84%);
+}
+
+.rain-field::before,
+.rain-field::after {
+  background-image: repeating-linear-gradient(
+    110deg,
+    transparent 0,
+    transparent 24px,
+    rgba(66, 165, 213, 0.18) 25px,
+    transparent 28px
+  );
+  animation: rain-drift 11s linear infinite;
+}
+
+.rain-field::after {
+  opacity: 0.38;
+  transform: translateX(12%);
+  animation-duration: 16s;
+}
+
 html.lenis,
 html.lenis body {
   height: auto;
@@ -211,6 +267,240 @@ textarea {
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.42);
 }
 
+.section-band {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-band::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(199, 208, 216, 0.04), transparent 22%, transparent 78%, rgba(66, 165, 213, 0.05)),
+    radial-gradient(circle at 18% 12%, rgba(66, 165, 213, 0.12), transparent 26%);
+  opacity: calc(0.34 + (var(--section-progress, 0) * 0.26));
+  pointer-events: none;
+}
+
+.section-band > .section-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.section-band--metal {
+  background:
+    linear-gradient(135deg, rgba(199, 208, 216, 0.08), transparent 42%),
+    linear-gradient(180deg, #111418, #050607);
+}
+
+.section-band--warm {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(243, 173, 69, 0.16), transparent 28%),
+    linear-gradient(180deg, #101316, #050607);
+}
+
+.hero-proof,
+.trust-pill {
+  border: 1px solid rgba(199, 208, 216, 0.16);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 0.85rem 1rem;
+  color: #f4f4f5;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.storm-card,
+.flow-panel,
+.service-card,
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(199, 208, 216, 0.16);
+  border-radius: 0.5rem;
+  background: linear-gradient(145deg, rgba(17, 20, 24, 0.9), rgba(5, 6, 7, 0.74));
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.42);
+}
+
+.storm-card {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.storm-card::before,
+.service-card__shine {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(120deg, transparent, rgba(199, 208, 216, 0.11), transparent);
+  transform: translateX(-72%);
+  transition: transform 720ms ease;
+  pointer-events: none;
+}
+
+.storm-card:hover::before,
+.service-card:hover .service-card__shine {
+  transform: translateX(72%);
+}
+
+.roofline-diagram {
+  position: relative;
+  min-height: 13rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 62% 26%, rgba(66, 165, 213, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+}
+
+.roofline-diagram__roof,
+.roofline-diagram__gutter,
+.roofline-diagram__flow {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.roofline-diagram__roof {
+  left: 12%;
+  right: 10%;
+  top: 42%;
+  height: 1.25rem;
+  background: linear-gradient(90deg, #0f1216, #222932);
+  transform: rotate(-10deg);
+}
+
+.roofline-diagram__gutter {
+  left: 17%;
+  right: 18%;
+  top: 49%;
+  height: 0.42rem;
+  background: linear-gradient(90deg, #7b8791, #e7edf2, #7b8791);
+  transform: rotate(-10deg);
+}
+
+.roofline-diagram__flow {
+  right: 18%;
+  top: 48%;
+  width: 0.42rem;
+  height: 38%;
+  background: linear-gradient(180deg, rgba(66, 165, 213, 0), rgba(66, 165, 213, 0.9), rgba(66, 165, 213, 0));
+  box-shadow: 0 0 28px rgba(66, 165, 213, 0.48);
+  animation: flow-pulse 2.8s ease-in-out infinite;
+}
+
+.water-card {
+  min-height: 15rem;
+}
+
+.water-card::after {
+  display: block;
+  width: 100%;
+  height: 0.18rem;
+  margin-top: 2rem;
+  content: "";
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(66, 165, 213, 0.8), rgba(243, 173, 69, 0.58), transparent);
+}
+
+.flow-panel {
+  display: grid;
+  gap: 0;
+  padding: 0;
+}
+
+.flow-step {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 1.35rem;
+}
+
+.flow-step:last-child {
+  border-bottom: 0;
+}
+
+.flow-step span,
+.process-step__number {
+  font-family: var(--font-display), var(--font-inter), system-ui, sans-serif;
+  color: #f3ad45;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.flow-step p {
+  color: #f4f4f5;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.service-card {
+  min-height: 17rem;
+  padding: 1.5rem;
+}
+
+.process-track {
+  display: grid;
+  gap: 1rem;
+}
+
+.process-step {
+  position: relative;
+  border: 1px solid rgba(199, 208, 216, 0.14);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 1.25rem;
+}
+
+.process-step h3 {
+  margin-top: 1.5rem;
+  color: #f4f4f5;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.process-step p {
+  margin-top: 0.75rem;
+  color: #d4d4d8;
+  line-height: 1.75;
+}
+
+.trust-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.gallery-card__image {
+  display: flex;
+  aspect-ratio: 4 / 3;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 1rem;
+  background:
+    linear-gradient(135deg, rgba(66, 165, 213, 0.18), transparent 42%),
+    repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 18px),
+    linear-gradient(145deg, #111418, #050607);
+}
+
+.gallery-card__image span {
+  color: #a1a1aa;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.final-cta {
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at 50% 10%, rgba(66, 165, 213, 0.2), transparent 32%),
+    linear-gradient(180deg, rgba(17, 20, 24, 0.88), #050607);
+}
+
 [data-scroll-scene] {
   --section-progress: 0;
 }
@@ -249,6 +539,45 @@ textarea {
   }
 }
 
+@keyframes rain-drift {
+  from {
+    transform: translate3d(0, -12%, 0);
+  }
+
+  to {
+    transform: translate3d(-7%, 12%, 0);
+  }
+}
+
+@keyframes slow-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flow-pulse {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: translateY(-8px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(8px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .process-track {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .process-step {
+    min-height: 18rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -269,6 +598,12 @@ textarea {
 
   .scene-canvas {
     display: none;
+  }
+
+  .storm-orbit,
+  .rain-field,
+  .roofline-diagram__flow {
+    animation: none;
   }
 }
 

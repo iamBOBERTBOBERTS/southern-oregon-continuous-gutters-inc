@@ -71,6 +71,13 @@ export function QuoteForm() {
 
   return (
     <form className="surface-panel rounded-lg p-5 sm:p-7" onSubmit={handleSubmit}>
+      <div className="mb-6 border-b border-white/10 pb-5">
+        <p className="text-xs font-bold uppercase tracking-[0.22em] text-rain">Homeowner quote request</p>
+        <h3 className="mt-3 text-2xl font-semibold text-zinc-50">Tell Paul what water is doing around the home.</h3>
+        <p className="mt-3 text-sm leading-6 text-zinc-400">
+          Include the city, service need, and what you are seeing at the roofline or downspouts.
+        </p>
+      </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" required>
           <input
@@ -162,12 +169,15 @@ export function QuoteForm() {
       ) : null}
 
       <button
-        className="mt-6 w-full rounded-md bg-amber px-6 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink shadow-amber transition hover:bg-amber/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber sm:w-auto"
+        className="mt-6 w-full rounded-md bg-amber px-6 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink shadow-amber transition hover:bg-amber/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber disabled:cursor-wait disabled:opacity-70"
         data-cta=""
         disabled={status === "loading"}
       >
         {status === "loading" ? "Submitting..." : "Request Quote"}
       </button>
+      <p className="mt-4 text-xs leading-5 text-zinc-500">
+        This form uses the existing website quote API. Call {siteData.phoneNumber} if the request is urgent.
+      </p>
     </form>
   );
 }

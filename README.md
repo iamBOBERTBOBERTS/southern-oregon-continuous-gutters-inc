@@ -34,7 +34,11 @@ npm run build
 
 ## Project Rules
 
-Read `docs/codex-rules.md` before major Codex work. It captures the guardrails for builds, dependencies, WebGL fallbacks, motion accessibility, mobile performance, and phase commits.
+Read `AGENTS.md` and `docs/codex-rules.md` before major Codex work. They capture the guardrails for business accuracy, quote workflow safety, builds, dependencies, WebGL fallbacks, motion accessibility, mobile performance, and phase commits.
+
+## Current Frontend Pass
+
+The current homepage pass is documented in `docs/cinematic-homepage-mvp.md`. It keeps the quote API and Base44 path intact while focusing the site on a premium cinematic stormwater-protection experience.
 
 ## Deployment
 
