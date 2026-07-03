@@ -1,0 +1,67 @@
+{
+  "name": "QuoteRequest",
+  "description": "Quote requests submitted from the website contact form.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Customer name."
+    },
+    "phone": {
+      "type": "string",
+      "description": "Customer phone number."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer email address."
+    },
+    "address_city": {
+      "type": "string",
+      "description": "Customer street address or city."
+    },
+    "service": {
+      "type": "string",
+      "description": "Requested gutter service."
+    },
+    "message": {
+      "type": "string",
+      "description": "Project details supplied by the customer."
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO timestamp when the website received the request."
+    },
+    "source": {
+      "type": "string",
+      "default": "website",
+      "description": "Submission source."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["new", "contacted", "quoted", "won", "lost"],
+      "default": "new",
+      "description": "Lead follow-up status."
+    }
+  },
+  "required": ["name", "phone", "email", "address_city", "service", "message", "submitted_at"],
+  "rls": {
+    "create": true,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

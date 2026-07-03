@@ -1,0 +1,11 @@
+{
+  "name": "Southern Oregon Continuous Gutters",
+  "description": "Lead capture backend for the Southern Oregon Continuous Gutters website.",
+  "entitiesDir": "./entities",
+  "site": {
+    "installCommand": "npm install",
+    "buildCommand": "npm run build",
+    "serveCommand": "npm run dev",
+    "outputDirectory": "./.next"
+  }
+}

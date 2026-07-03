@@ -66,7 +66,9 @@ Recommended final asset inputs:
 
 ## Quote form
 
-The quote form lives in `components/QuoteForm.tsx` and submits to `app/api/quote/route.ts`. The API validates required fields, checks a honeypot field, logs the submission server-side for now, and returns success. No third-party email or CRM service is configured yet.
+The quote form lives in `components/QuoteForm.tsx` and submits to `app/api/quote/route.ts`. The API validates required fields, checks a honeypot field, and stores submissions in the Base44 `QuoteRequest` entity when `BASE44_APP_ID` is configured and the entity has been pushed. Without `BASE44_APP_ID`, it logs the validated submission and returns success with `stored: false`.
+
+Base44 setup details and remaining CLI steps are documented in `docs/base44-integration.md`.
 
 Business inputs still needed:
 

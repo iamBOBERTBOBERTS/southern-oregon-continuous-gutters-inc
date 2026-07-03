@@ -8,5 +8,6 @@ dev-server*.log
 .env*.local
 !.env.example
 vercel
+base44/.app.jsonc
 
 .vercel

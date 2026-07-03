@@ -86,8 +86,8 @@ Current behavior:
 
 - Validates required fields.
 - Includes a honeypot field for basic spam filtering.
-- Logs submissions server-side.
-- Returns success without sending email.
+- Stores submissions in the Base44 `QuoteRequest` entity when `BASE44_APP_ID` is configured and the entity has been pushed.
+- Falls back to server-side logging when `BASE44_APP_ID` is not configured.
 
 To connect email or CRM later:
 
@@ -95,6 +95,8 @@ To connect email or CRM later:
 2. Keep secrets out of source files.
 3. Update `app/api/quote/route.ts` to send the validated payload.
 4. Add production error logging before launch.
+
+See `docs/base44-integration.md` for the Base44 app ID, entity schema, validation notes, and remaining CLI link/push steps.
 
 ## Notes
 

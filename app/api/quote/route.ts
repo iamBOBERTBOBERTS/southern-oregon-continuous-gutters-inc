@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getBase44Client, isBase44Configured } from "@/lib/base44";
 import { siteData } from "@/lib/site-data";
 
 type QuotePayload = {
@@ -47,21 +48,47 @@ export async function POST(request: Request) {
   }
 
   const submission = {
-    addressCity: clean(payload.addressCity),
+    address_city: clean(payload.addressCity),
     email: clean(payload.email),
     message: clean(payload.message),
     name: clean(payload.name),
     phone: clean(payload.phone),
     service: clean(payload.service),
-    submittedAt: new Date().toISOString()
+    source: "website",
+    status: "new",
+    submitted_at: new Date().toISOString()
   };
+
+  if (isBase44Configured) {
+    const base44 = getBase44Client();
+
+    try {
+      await base44?.entities.QuoteRequest.create(submission);
+    } catch (error) {
+      console.error("Quote request could not be stored in Base44", {
+        business: siteData.businessName,
+        error
+      });
+
+      return NextResponse.json(
+        {
+          error: "Quote request could not be stored."
+        },
+        { status: 502 }
+      );
+    } finally {
+      base44?.cleanup();
+    }
+  } else {
+    console.warn("BASE44_APP_ID is not configured. Quote request was validated but not stored in Base44.");
+  }
 
   console.info("Quote request received", {
     business: siteData.businessName,
     submission
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, stored: isBase44Configured });
 }
 
 function isPresent(value: unknown) {
