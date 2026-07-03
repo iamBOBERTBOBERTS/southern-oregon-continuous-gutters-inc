@@ -100,7 +100,7 @@ To connect email or CRM later:
 3. Update `app/api/quote/route.ts` to send the validated payload.
 4. Add production error logging before launch.
 
-See `docs/base44-integration.md` for the Base44 app ID, entity schema, validation notes, and remaining CLI link/push steps.
+See `docs/base44-integration.md` for the Base44 app ID, entity schema, validation notes, entity push command, and remaining Base44 app availability blocker.
 
 ## Notes
 

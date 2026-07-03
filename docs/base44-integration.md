@@ -38,18 +38,30 @@ BASE44_APP_ID=6a470f4891bc3549991572ff
 
 RLS allows public create access for form submissions and restricts read, update, and delete access to admin users.
 
-## Remaining Base44 CLI steps
+## Base44 CLI status
 
-These steps still need to run after Base44 CLI authentication works:
+The installed Base44 CLI can target this app directly with the global `--app-id` flag. The documented `link --projectId` option was not available in the installed CLI and returned no linkable projects for the authenticated account.
+
+Successful authentication and entity push commands:
 
 ```powershell
 npx base44 whoami
-npx base44 link --projectId 6a470f4891bc3549991572ff
-npx base44 entities push
-npx base44 types generate
+npx base44 --app-id 6a470f4891bc3549991572ff entities push
 ```
 
-During this pass, `npx base44 whoami` hung until timeout, so the project was not linked and the entity was not pushed to the remote Base44 app.
+The entity push created `QuoteRequest` in Base44. The CLI also warned `Deleted: User`, which means the remote entity set was synchronized to match the local `base44/entities` folder.
+
+The local project is still not linked with `base44/.app.jsonc`; that file is intentionally ignored if it is created later.
+
+## Remaining Base44 blocker
+
+After the entity push, the local quote API still receives this Base44 SDK error when `BASE44_APP_ID` is configured:
+
+```text
+403: This app is not yet available. Please check back later.
+```
+
+Until the Base44 app is made available/published for SDK access, quote submissions with `BASE44_APP_ID` set will return `502` from `/api/quote`. Without `BASE44_APP_ID`, the route still validates and logs submissions with `stored: false`.
 
 ## Validation performed
 
@@ -67,5 +79,5 @@ Next.js still emits a non-fatal SWC lockfile patch warning after build even thou
 ## Production notes
 
 - Add `BASE44_APP_ID` to Vercel before expecting quote records to be stored.
-- Push the `QuoteRequest` entity before testing production submissions.
+- Confirm the Base44 app is available for SDK access before testing production submissions.
 - Confirm the intended admin users in Base44 before relying on the admin-only read/update/delete rules.
