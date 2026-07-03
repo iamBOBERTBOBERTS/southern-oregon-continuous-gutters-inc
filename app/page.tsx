@@ -7,40 +7,46 @@ import { SceneCanvasLoader } from "@/components/three/SceneCanvasLoader";
 import { siteData } from "@/lib/site-data";
 
 const stormIssues = [
-  "Overflow at the roof edge can soak fascia, stain siding, and push water into places it should not go.",
-  "Runoff without a clear path can cut through soil, bark, and landscaping around Southern Oregon homes.",
-  "A missing or failing gutter system can direct water toward walkways and foundation edges."
+  "Overflowing, leaking, undersized, or failing gutters can send water where it does not belong - into fascia boards, siding, landscaping, walkways, and foundations."
 ];
 
 const serviceDetails = [
   {
     title: "Continuous gutter installation",
-    body: "Seamless gutter runs are custom fit on site for the roofline, fascia condition, and drainage layout."
+    body: "Continuous gutters are custom fit on site for clean roofline drainage and long, seamless runs."
   },
   {
     title: "Seamless gutter replacement",
     body: "Replacement for aging, leaking, damaged, undersized, or poorly pitched gutter systems."
   },
   {
-    title: "Gutter protection",
-    body: "Options for homes with tree debris and seasonal buildup. Final fit should be verified on site."
+    title: "Downspout installation",
+    body: "Downspout placement and replacement to direct water safely away from the structure."
   },
   {
-    title: "Downspouts",
-    body: "Downspout placement and replacement to help move runoff away from fascia, siding, landscaping, and foundations."
+    title: "Gutter protection options",
+    body: "Protection options for Southern Oregon homes with trees, debris, and seasonal buildup."
   },
   {
     title: "Exterior water management",
     body: "Practical routing recommendations for entries, walkways, landscape beds, and foundation edges."
+  },
+  {
+    title: "Residential gutter systems",
+    body: "Seamless gutter systems for Southern Oregon homes, rooflines, and runoff conditions."
+  },
+  {
+    title: "Light commercial gutter systems",
+    body: "Clean, practical gutter and downspout work for smaller commercial properties."
   }
 ];
 
 const processSteps = [
-  "Review rooflines, fascia, drainage points, trees, and access.",
-  "Confirm gutter profile, downspout placement, and protection needs.",
-  "Custom fit continuous gutters on site for the home.",
-  "Install and align the system for clean runoff movement.",
-  "Walk the project and review final drainage notes."
+  "Inspect the roofline and drainage needs.",
+  "Measure the home for a custom fit.",
+  "Form continuous gutters on site.",
+  "Install, align, and secure the system.",
+  "Direct water safely away from the structure."
 ];
 
 const faqs = [
@@ -67,29 +73,34 @@ const faqs = [
 
 const journeyScenes = [
   {
-    label: "01 / Storm Approaches",
-    title: "Built for Southern Oregon Storms.",
-    body: "Rain, trees, rooflines, and runoff all shape how water moves around a home. A gutter system should be planned before weather exposes weak points."
+    label: "01 / Opening",
+    title: "Southern Oregon storms are serious.",
+    body: "A dark roofline, slow rain, and shifting light set the tone for weather that tests every edge of the home."
   },
   {
-    label: "02 / Water Finds Weakness",
-    title: "Overflow becomes damage when it has nowhere to go.",
-    body: "Uncontrolled water can spill over edges, soak fascia, mark siding, erode soil, and push runoff toward foundations."
+    label: "02 / Problem",
+    title: "Poor drainage damages homes.",
+    body: "When water overflows and scatters, it can soak fascia, mark siding, erode landscaping, and move toward foundations."
   },
   {
-    label: "03 / Seamless Protection",
-    title: "A continuous gutter profile takes the load.",
-    body: "A clean seamless gutter profile collects roof runoff and sends it toward a planned downspout path."
+    label: "03 / Craft",
+    title: "Continuous gutters are custom made.",
+    body: "An aluminum profile forms in 3D to show how seamless gutters are custom fit on site for the home."
   },
   {
-    label: "04 / Custom Formed On Site",
-    title: "Custom fit on site for the roofline.",
-    body: "Continuous gutters are formed for the actual home, giving the system a clean profile and practical fit around the drainage needs."
+    label: "04 / Solution",
+    title: "Proper systems control runoff.",
+    body: "Water moves smoothly through the gutter and into a planned downspout path instead of spreading across vulnerable areas."
   },
   {
-    label: "05 / Protect the Home",
-    title: "Protect fascia, siding, landscaping, and foundations.",
-    body: "With water moving away from vulnerable areas, the system supports straightforward exterior water management for Southern Oregon homes."
+    label: "05 / Local Trust",
+    title: "Local owner. Local service.",
+    body: "A calm home silhouette and warm light shift the scene from storm pressure to practical help from Paul Chitwood."
+  },
+  {
+    label: "06 / CTA",
+    title: "Call Paul or request a quote.",
+    body: "The path ends with clear contact options: call 541-821-4258 or send the quote form with the project details."
   }
 ];
 
@@ -180,21 +191,24 @@ function Hero() {
       <Header />
       <div className="section-shell relative z-10 grid min-h-[calc(100svh-6rem)] items-center gap-12 py-12 lg:grid-cols-[1.08fr_0.92fr]">
         <div>
-          <SectionLabel>Seamless gutters for {siteData.serviceArea}</SectionLabel>
+          <SectionLabel>Seamless gutter systems</SectionLabel>
           <RevealText
             as="h1"
             className="cinematic-type mt-6 max-w-5xl text-5xl font-bold leading-[0.92] text-zinc-50 sm:text-7xl lg:text-8xl"
           >
-            Continuous gutters built for the way water moves.
+            Southern Oregon Continuous Gutters
           </RevealText>
-          <p data-reveal className="mt-7 max-w-2xl text-lg leading-8 text-zinc-300">
-            {siteData.businessName} installs continuous gutters, seamless gutters, downspouts, and gutter protection
-            for Southern Oregon homes. Built for rain, trees, rooflines, and runoff.
+          <p data-reveal className="mt-7 max-w-2xl text-2xl font-semibold leading-9 text-zinc-100">
+            Seamless gutter systems built for Southern Oregon storms.
+          </p>
+          <p data-reveal className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
+            Custom-fit continuous gutters designed to move water cleanly, protect your roofline, and help defend your
+            home from runoff damage.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Button href={siteData.phoneHref}>{siteData.ctas.primary}</Button>
             <Button href="#quote" variant="secondary">
-              Request a Gutter Quote
+              {siteData.ctas.secondary}
             </Button>
           </div>
         </div>
@@ -267,7 +281,7 @@ function StormProblem() {
         <div>
           <SectionLabel>Storm problem</SectionLabel>
           <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-5xl">
-            Water finds the weak point first.
+            When the rain hits, every roofline tells the truth.
           </h2>
         </div>
         <div className="grid gap-4">
@@ -288,17 +302,19 @@ function Solution() {
       <div className="section-shell grid gap-10 lg:grid-cols-2 lg:items-center">
         <div className="surface-panel rounded-lg p-6 sm:p-8">
           <SectionLabel>Seamless gutter solution</SectionLabel>
-          <h2 className="mt-5 text-3xl font-semibold text-zinc-50">Custom fit on site for clean water control.</h2>
+          <h2 className="mt-5 text-3xl font-semibold text-zinc-50">
+            A continuous gutter system is formed to fit your home.
+          </h2>
           <p className="mt-5 leading-8 text-zinc-300">
-            Continuous gutter runs are formed to match the home, helping roof runoff move cleanly toward planned
-            downspout paths.
+            No unnecessary seams. Cleaner lines. Better water control. A stronger exterior protection system for the
+            conditions Southern Oregon homes face every season.
           </p>
         </div>
         <div className="rounded-lg border border-rain/25 bg-rain/10 p-6" data-card>
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-rain">System intent</p>
           <p className="mt-4 text-2xl font-semibold leading-9 text-zinc-50">
-            Collect water at the roofline, carry it through a continuous channel, and move it away from vulnerable
-            exterior areas.
+            Collect water at the roofline, carry it through a continuous channel, and protect fascia, siding,
+            landscaping, and foundations.
           </p>
         </div>
       </div>
@@ -445,10 +461,11 @@ function Contact() {
         <div>
           <SectionLabel>Contact / quote</SectionLabel>
           <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-5xl">
-            Request a gutter quote.
+            Protect your home before the next storm cycle.
           </h2>
           <p data-reveal className="mt-6 leading-8 text-zinc-300">
-            Send the project details or call Paul at 541-821-4258 for the most direct next step.
+            Talk with Paul at Southern Oregon Continuous Gutters Inc. and request a straightforward quote for your home
+            or property.
           </p>
           <a data-cta className="mt-7 block text-3xl font-bold text-amber" href={siteData.phoneHref}>
             {siteData.phoneNumber}

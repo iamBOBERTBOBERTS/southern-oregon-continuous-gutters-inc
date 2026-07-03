@@ -8,9 +8,11 @@ export const siteData = {
   services: [
     "Continuous gutter installation",
     "Seamless gutter replacement",
-    "Gutter protection",
-    "Downspouts",
-    "Exterior water management"
+    "Downspout installation",
+    "Gutter protection options",
+    "Exterior water management",
+    "Residential gutter systems",
+    "Light commercial gutter systems"
   ],
   seoServices: [
     "continuous gutters",
@@ -21,9 +23,9 @@ export const siteData = {
     "gutter protection"
   ],
   description:
-    "Southern Oregon Continuous Gutters Inc. installs continuous gutters, seamless gutters, downspouts, and gutter protection for Southern Oregon homes.",
+    "Southern Oregon Continuous Gutters Inc. installs custom-fit continuous gutters and seamless gutter systems built for Southern Oregon storms.",
   ctas: {
-    primary: "Call 541-821-4258",
+    primary: "Call Paul: 541-821-4258",
     secondary: "Request a Quote",
     phoneShort: "Call"
   }

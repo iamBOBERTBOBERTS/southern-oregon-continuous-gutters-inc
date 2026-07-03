@@ -32,6 +32,10 @@ npm run lint
 npm run build
 ```
 
+## Project Rules
+
+Read `docs/codex-rules.md` before major Codex work. It captures the guardrails for builds, dependencies, WebGL fallbacks, motion accessibility, mobile performance, and phase commits.
+
 ## Deployment
 
 This project is Vercel-ready.
