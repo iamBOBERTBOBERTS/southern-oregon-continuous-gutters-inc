@@ -26,14 +26,14 @@ export function Button({ children, className = "", href, variant = "primary", ..
 
   if (href.startsWith("/")) {
     return (
-      <Link className={classes} href={href} {...props}>
+      <Link className={classes} data-cta="" href={href} {...props}>
         {children}
       </Link>
     );
   }
 
   return (
-    <a className={classes} href={href} {...props}>
+    <a className={classes} data-cta="" href={href} {...props}>
       {children}
     </a>
   );
