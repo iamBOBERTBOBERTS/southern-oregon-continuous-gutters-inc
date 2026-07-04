@@ -473,7 +473,8 @@ textarea {
   gap: 1rem;
 }
 
-.gallery-card__image {
+.gallery-card__image,
+.compare-card__image {
   display: flex;
   aspect-ratio: 4 / 3;
   align-items: flex-end;
@@ -485,12 +486,99 @@ textarea {
     linear-gradient(145deg, #111418, #050607);
 }
 
-.gallery-card__image span {
+.gallery-card__image::before,
+.compare-card__image::before,
+.owner-photo-slot::before {
+  position: absolute;
+  inset: 1rem;
+  content: "";
+  border: 1px solid rgba(199, 208, 216, 0.14);
+  border-radius: 0.375rem;
+  pointer-events: none;
+}
+
+.gallery-card__image {
+  position: relative;
+}
+
+.gallery-card__image span,
+.compare-card__image span,
+.asset-file-name {
   color: #a1a1aa;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.before-after-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.compare-card {
+  overflow: hidden;
+  border: 1px solid rgba(199, 208, 216, 0.16);
+  border-radius: 0.5rem;
+  background: linear-gradient(145deg, rgba(17, 20, 24, 0.9), rgba(5, 6, 7, 0.74));
+}
+
+.compare-card__image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(90deg, rgba(243, 173, 69, 0.14), transparent 48%, rgba(66, 165, 213, 0.16)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 22px),
+    linear-gradient(145deg, #0d1013, #050607);
+}
+
+.compare-card__image span {
+  color: #f3ad45;
+}
+
+.owner-photo-slot,
+.asset-roadmap-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(199, 208, 216, 0.14);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(135deg, rgba(66, 165, 213, 0.12), transparent 46%),
+    linear-gradient(145deg, rgba(17, 20, 24, 0.84), rgba(5, 6, 7, 0.72));
+  padding: 1.5rem;
+}
+
+.owner-photo-slot {
+  min-height: 11rem;
+}
+
+.asset-roadmap-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.asset-roadmap-card {
+  display: flex;
+  min-height: 13rem;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.asset-roadmap-card::after {
+  position: absolute;
+  right: -3rem;
+  bottom: -4rem;
+  width: 12rem;
+  height: 12rem;
+  content: "";
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(66, 165, 213, 0.14), transparent 68%);
+  pointer-events: none;
+}
+
+.asset-file-name {
+  margin-top: 2rem;
+  color: rgba(199, 208, 216, 0.74);
 }
 
 .final-cta {
@@ -575,6 +663,14 @@ textarea {
 
   .process-step {
     min-height: 18rem;
+  }
+
+  .before-after-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .asset-roadmap-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

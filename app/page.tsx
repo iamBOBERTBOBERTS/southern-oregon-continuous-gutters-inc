@@ -100,18 +100,64 @@ const trustItems = [
   "No published street address until confirmed"
 ];
 
+// TODO(final-assets): Replace these CSS-ready slots with approved local project photos in public/images/.
 const galleryItems = [
   {
     title: "Roofline profile",
-    body: "Use for approved close-up photos of the finished continuous gutter line."
+    body: "Close-up detail of a finished continuous gutter line.",
+    slot: "project-roofline-profile.jpg"
   },
   {
     title: "Downspout routing",
-    body: "Use for before-and-after examples showing how water is carried away."
+    body: "Approved image showing how water is carried away from the home.",
+    slot: "project-downspout-routing.jpg"
   },
   {
     title: "Finished exterior",
-    body: "Use for curb-facing project photos after business approval."
+    body: "Curb-facing finished installation after business approval.",
+    slot: "project-finished-exterior.jpg"
+  }
+];
+
+// TODO(final-assets): Swap these comparison modules for real before/after pairs when approved.
+const beforeAfterItems = [
+  {
+    title: "Before",
+    body: "Use an approved photo of the existing gutter, runoff, or roofline condition before work begins.",
+    slot: "before-existing-runoff.jpg"
+  },
+  {
+    title: "After",
+    body: "Use the matching approved finished installation photo from the same angle where practical.",
+    slot: "after-finished-runoff-control.jpg"
+  }
+];
+
+// TODO(final-assets): Replace these process slots with real fabrication, installation, and local context photos.
+const assetRoadmapItems = [
+  {
+    label: "Fabrication",
+    title: "On-site continuous gutter forming",
+    body: "Best for a clean horizontal photo of equipment forming gutter material.",
+    slot: "fabrication-continuous-gutter-forming.jpg"
+  },
+  {
+    label: "Installation",
+    title: "Roofline install detail",
+    body: "Best for an approved crew-safe installation detail without showing unsafe work conditions.",
+    slot: "install-roofline-detail.jpg"
+  },
+  {
+    label: "Local context",
+    title: "Southern Oregon home exterior",
+    body: "Best for a real service-area exterior or landscape reference approved by the client.",
+    slot: "southern-oregon-home-context.jpg"
+  },
+  {
+    label: "Company",
+    title: "Owner or company photo",
+    body: "Use only if Paul approves being shown, or use a company vehicle/equipment photo instead.",
+    slot: "owner-or-company-approved.jpg"
   }
 ];
 
@@ -179,6 +225,7 @@ export default function Home() {
       <Process />
       <LocalTrust />
       <Gallery />
+      <AssetRoadmap />
       <Faq />
       <Contact />
       <FinalCta />
@@ -403,12 +450,20 @@ function LocalTrust() {
             quote paths without invented awards, reviews, or warranty claims.
           </p>
         </div>
-        <div className="trust-grid">
-          {trustItems.map((item) => (
-            <div className="trust-pill" data-card key={item}>
-              {item}
-            </div>
-          ))}
+        <div className="grid gap-5">
+          <div className="trust-grid">
+            {trustItems.map((item) => (
+              <div className="trust-pill" data-card key={item}>
+                {item}
+              </div>
+            ))}
+          </div>
+          <div className="owner-photo-slot" data-card>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-rain">Approved company image slot</p>
+            <p className="mt-3 text-sm leading-6 text-zinc-400">
+              Ready for an owner-approved photo, company vehicle, equipment detail, or clean job-site image.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -419,20 +474,68 @@ function Gallery() {
   return (
     <section data-scroll-scene className="section-band px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell">
-        <SectionLabel>Gallery placeholders</SectionLabel>
+        <SectionLabel>Project photography slots</SectionLabel>
         <h2 data-reveal className="cinematic-type mt-5 max-w-4xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-          Ready for approved local project photography.
+          Designed to look complete now, ready for approved photos later.
         </h2>
+        <p data-reveal className="mt-6 max-w-3xl leading-8 text-zinc-300">
+          These visual modules are intentionally styled as premium asset slots until real local project photography is
+          approved. No fake projects, reviews, or before-and-after claims are shown.
+        </p>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {galleryItems.map((item) => (
             <article className="gallery-card" data-card key={item.title}>
               <div className="gallery-card__image">
-                <span>{item.title}</span>
+                <span>{item.slot}</span>
               </div>
               <div className="p-5">
                 <h3 className="font-semibold text-zinc-50">{item.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-zinc-400">{item.body}</p>
               </div>
+            </article>
+          ))}
+        </div>
+        <div className="before-after-grid mt-5">
+          {beforeAfterItems.map((item) => (
+            <article className="compare-card" data-card key={item.title}>
+              <div className="compare-card__image">
+                <span>{item.title}</span>
+              </div>
+              <div className="p-5">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber">{item.slot}</p>
+                <p className="mt-3 text-sm leading-6 text-zinc-400">{item.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AssetRoadmap() {
+  return (
+    <section data-scroll-scene className="section-band section-band--metal border-y border-white/10 px-4 py-20 sm:px-6 lg:px-8">
+      <div className="section-shell grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+        <div>
+          <SectionLabel>Asset-ready system</SectionLabel>
+          <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
+            Built for real photos when the client is ready.
+          </h2>
+          <p data-reveal className="mt-6 leading-8 text-zinc-300">
+            The site can accept final photography without restructuring the page. Until then, these modules keep the
+            experience polished and honest.
+          </p>
+        </div>
+        <div className="asset-roadmap-grid">
+          {assetRoadmapItems.map((item) => (
+            <article className="asset-roadmap-card" data-card key={item.slot}>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-rain">{item.label}</p>
+                <h3 className="mt-3 text-xl font-semibold text-zinc-50">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-zinc-400">{item.body}</p>
+              </div>
+              <p className="asset-file-name">{item.slot}</p>
             </article>
           ))}
         </div>

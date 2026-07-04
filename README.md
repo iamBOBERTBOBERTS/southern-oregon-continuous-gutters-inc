@@ -75,12 +75,15 @@ Update this file for:
 
 ## Replacing Images
 
-The current gallery uses CSS-only placeholders. When final project photos are available:
+The current homepage uses CSS-only asset slots so the site can be reviewed before final photos are approved. Use `docs/asset-intake-checklist.md` to collect the required image assets and business confirmations.
+
+When final project photos are available:
 
 1. Add optimized images under `public/images/`.
-2. Replace placeholder gallery cards in `app/page.tsx`.
+2. Replace the asset slots in `app/page.tsx`.
 3. Use Next.js `Image` with explicit `width`, `height`, and descriptive `alt` text.
 4. Keep images compressed and sized for their display area.
+5. Confirm the public phone number, service area, CCB display preference, owner-name preference, and street-address preference before launch.
 
 ## Quote Form
 
