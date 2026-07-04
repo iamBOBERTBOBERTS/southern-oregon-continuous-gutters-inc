@@ -11,6 +11,7 @@ export function ScrollSceneController() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
     let quoteObserver: IntersectionObserver | undefined;
+    let heroObserver: IntersectionObserver | undefined;
 
     const quoteSectionForSticky = document.querySelector<HTMLElement>("#quote");
     if (quoteSectionForSticky && !isDesktop) {
@@ -27,11 +28,28 @@ export function ScrollSceneController() {
       quoteObserver.observe(quoteSectionForSticky);
     }
 
+    const heroSectionForSticky = document.querySelector<HTMLElement>(".hero-cinema");
+    if (heroSectionForSticky && !isDesktop) {
+      heroObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            document.body.setAttribute("data-hero-in-view", "true");
+          } else {
+            document.body.removeAttribute("data-hero-in-view");
+          }
+        },
+        { rootMargin: "0px 0px -38% 0px", threshold: 0.04 }
+      );
+      heroObserver.observe(heroSectionForSticky);
+    }
+
     if (reduceMotion) {
       document.documentElement.style.setProperty("--scene-progress", "1");
       return () => {
         quoteObserver?.disconnect();
+        heroObserver?.disconnect();
         document.body.removeAttribute("data-quote-in-view");
+        document.body.removeAttribute("data-hero-in-view");
       };
     }
 
@@ -161,7 +179,9 @@ export function ScrollSceneController() {
 
     return () => {
       quoteObserver?.disconnect();
+      heroObserver?.disconnect();
       document.body.removeAttribute("data-quote-in-view");
+      document.body.removeAttribute("data-hero-in-view");
       ctx.revert();
     };
   }, []);

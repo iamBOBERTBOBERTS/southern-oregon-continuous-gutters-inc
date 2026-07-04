@@ -73,28 +73,28 @@ const process = [
 // TODO(final-assets): Replace these intentional placeholders with approved project photography in public/images/.
 const imageSlots = [
   {
-    title: "Finished roofline profile",
-    use: "Hero-supporting project detail",
+    title: "Finished roofline",
+    use: "Clean completed gutter line on a real Southern Oregon home",
     file: "project-roofline-profile.jpg"
   },
   {
-    title: "Downspout route",
-    use: "Water-control detail",
+    title: "Downspout detail",
+    use: "Approved close-up showing practical water routing",
     file: "project-downspout-routing.jpg"
   },
   {
-    title: "Before / after pair",
-    use: "Matched project comparison",
+    title: "Before / after",
+    use: "Matched project pair from the same angle where practical",
     file: "before-after-runoff-control.jpg"
   },
   {
-    title: "Fabrication detail",
-    use: "On-site continuous gutter forming",
+    title: "Installation detail",
+    use: "On-site fabrication or roofline install detail",
     file: "fabrication-continuous-gutter-forming.jpg"
   },
   {
-    title: "Company image",
-    use: "Owner-approved photo, vehicle, or equipment",
+    title: "Local project",
+    use: "Approved exterior, company, vehicle, or equipment image",
     file: "owner-or-company-approved.jpg"
   }
 ];
@@ -198,17 +198,17 @@ function Hero() {
   return (
     <section className="hero-cinema relative min-h-screen overflow-hidden px-4 pt-24 sm:px-6 lg:px-8">
       <StormAtmosphere />
-      <div className="section-shell relative z-10 grid min-h-[calc(100svh-6rem)] items-center gap-10 py-12 lg:grid-cols-[1.02fr_0.98fr]">
+      <div className="section-shell hero-shell relative z-10 grid min-h-[calc(100svh-6rem)] items-center gap-10 py-12 lg:grid-cols-[1.02fr_0.98fr]">
         <div className="hero-copy">
           <SectionKicker>Stormwater protection for Southern Oregon homes</SectionKicker>
-          <h1 data-reveal className="cinematic-type mt-6 max-w-5xl text-5xl font-bold leading-[0.88] text-zinc-50 sm:text-7xl lg:text-8xl">
-            Give rain a controlled path.
+          <h1 data-reveal className="cinematic-type hero-title mt-6 max-w-5xl text-5xl font-bold leading-[0.88] text-zinc-50 sm:text-7xl lg:text-8xl">
+            Control the water before it controls the home.
           </h1>
-          <p data-reveal className="mt-7 max-w-2xl text-xl font-semibold leading-8 text-zinc-100 sm:text-2xl sm:leading-9">
-            Custom-fit continuous gutter systems designed to move roof water away from siding, walkways, landscaping,
+          <p data-reveal className="hero-lede mt-7 max-w-2xl text-xl font-semibold leading-8 text-zinc-100 sm:text-2xl sm:leading-9">
+            Custom-fit continuous gutters built to move Southern Oregon rain away from rooflines, walkways, landscaping,
             and foundation edges.
           </p>
-          <div data-reveal className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div data-reveal className="hero-actions mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href={siteData.phoneHref}>{siteData.ctas.primary}</Button>
             <Button href="#quote" variant="secondary">
               Request a Gutter Estimate
@@ -368,7 +368,7 @@ function AssetSlots() {
           {imageSlots.map((slot, index) => (
             <article data-card className="asset-frame" key={slot.file}>
               <div className="asset-frame__image">
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{slot.title}</span>
               </div>
               <div className="asset-frame__copy">
                 <h3>{slot.title}</h3>
