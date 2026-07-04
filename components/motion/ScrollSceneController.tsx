@@ -10,10 +10,29 @@ export function ScrollSceneController() {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    let quoteObserver: IntersectionObserver | undefined;
+
+    const quoteSectionForSticky = document.querySelector<HTMLElement>("#quote");
+    if (quoteSectionForSticky && !isDesktop) {
+      quoteObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            document.body.setAttribute("data-quote-in-view", "true");
+          } else {
+            document.body.removeAttribute("data-quote-in-view");
+          }
+        },
+        { rootMargin: "0px 0px -24% 0px", threshold: 0.08 }
+      );
+      quoteObserver.observe(quoteSectionForSticky);
+    }
 
     if (reduceMotion) {
       document.documentElement.style.setProperty("--scene-progress", "1");
-      return;
+      return () => {
+        quoteObserver?.disconnect();
+        document.body.removeAttribute("data-quote-in-view");
+      };
     }
 
     const ctx = gsap.context(() => {
@@ -123,11 +142,26 @@ export function ScrollSceneController() {
           });
         });
       }
+
+      const quoteSection = document.querySelector<HTMLElement>("#quote");
+      if (quoteSection) {
+        ScrollTrigger.create({
+          trigger: quoteSection,
+          start: "top 75%",
+          end: "bottom 25%",
+          onEnter: () => document.body.setAttribute("data-quote-in-view", "true"),
+          onEnterBack: () => document.body.setAttribute("data-quote-in-view", "true"),
+          onLeave: () => document.body.removeAttribute("data-quote-in-view"),
+          onLeaveBack: () => document.body.removeAttribute("data-quote-in-view")
+        });
+      }
     });
 
     ScrollTrigger.refresh();
 
     return () => {
+      quoteObserver?.disconnect();
+      document.body.removeAttribute("data-quote-in-view");
       ctx.revert();
     };
   }, []);

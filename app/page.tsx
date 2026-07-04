@@ -1,34 +1,41 @@
 import { Button } from "@/components/Button";
 import { ScrollSceneController } from "@/components/motion/ScrollSceneController";
 import { QuoteForm } from "@/components/QuoteForm";
-import { RevealText } from "@/components/RevealText";
-import { SectionLabel } from "@/components/SectionLabel";
-import { SceneCanvasLoader } from "@/components/three/SceneCanvasLoader";
 import { siteData } from "@/lib/site-data";
 
-const problemCards = [
+const waterPath = [
   {
-    title: "Runoff leaves the roofline",
-    body: "Heavy rain can sheet off roof edges, splash siding, and push water into places the home was not built to absorb."
+    label: "Roof edge",
+    title: "Rain leaves the roof fast.",
+    body: "Southern Oregon storms can turn a roofline into a sheet of runoff within minutes."
   },
   {
-    title: "Small failures spread fast",
-    body: "Poor pitch, loose sections, and weak downspout routing can lead to wet fascia, stained walkways, erosion, and foundation-edge pressure."
+    label: "Capture",
+    title: "The system has to catch it cleanly.",
+    body: "Continuous runs are formed to fit the home and reduce unnecessary joint points."
   },
   {
-    title: "Drainage needs a path",
-    body: "A gutter system should collect water, move it cleanly, and release it away from the structure with a practical downspout route."
+    label: "Carry",
+    title: "Pitch and placement move water with purpose.",
+    body: "The goal is a controlled path across the roofline instead of overflow at weak points."
+  },
+  {
+    label: "Direct",
+    title: "Downspouts finish the route.",
+    body: "Water should be released away from entries, walkways, beds, and foundation edges where practical."
   }
 ];
 
-const solutionPoints = [
-  "Measured at the roofline",
-  "Formed in continuous runs",
-  "Aligned for controlled flow",
-  "Routed away from vulnerable areas"
+const risks = [
+  "Overflow at roof edges",
+  "Wet fascia and stained siding",
+  "Walkway splashback",
+  "Landscape erosion",
+  "Poor downspout routing",
+  "Seasonal debris buildup"
 ];
 
-const serviceDetails = [
+const services = [
   {
     title: "Continuous gutter installation",
     body: "Custom-fit continuous gutters formed for clean roofline drainage and long seamless runs."
@@ -55,109 +62,40 @@ const serviceDetails = [
   }
 ];
 
-const whyItems = [
-  {
-    title: "Southern Oregon weather",
-    body: "Seasonal rain, tree debris, and varied rooflines make controlled drainage a real protection issue, not just a cosmetic upgrade."
-  },
-  {
-    title: "Cleaner curb appeal",
-    body: "Continuous runs create a cleaner finished line across the roof edge while supporting the drainage plan."
-  },
-  {
-    title: "Fewer joint points",
-    body: "Seamless gutter runs reduce the number of joints compared with sectional systems."
-  }
+const process = [
+  "Review the roofline, runoff areas, slope needs, and existing drainage concerns.",
+  "Measure the home for custom-fit continuous gutter runs and downspout locations.",
+  "Form continuous gutters on site for the needed profile and lengths.",
+  "Install, secure, align, and connect the system with attention to water movement.",
+  "Route water away from vulnerable areas where practical for the property."
 ];
 
-const processSteps = [
+// TODO(final-assets): Replace these intentional placeholders with approved project photography in public/images/.
+const imageSlots = [
   {
-    title: "Review",
-    body: "Inspect the roofline, runoff areas, slope needs, and existing drainage concerns."
+    title: "Finished roofline profile",
+    use: "Hero-supporting project detail",
+    file: "project-roofline-profile.jpg"
   },
   {
-    title: "Measure",
-    body: "Measure the home for custom-fit continuous gutter runs and downspout locations."
+    title: "Downspout route",
+    use: "Water-control detail",
+    file: "project-downspout-routing.jpg"
   },
   {
-    title: "Form",
-    body: "Fabricate continuous gutters on site for the needed profile and lengths."
+    title: "Before / after pair",
+    use: "Matched project comparison",
+    file: "before-after-runoff-control.jpg"
   },
   {
-    title: "Install",
-    body: "Install, secure, align, and connect the system with attention to water movement."
+    title: "Fabrication detail",
+    use: "On-site continuous gutter forming",
+    file: "fabrication-continuous-gutter-forming.jpg"
   },
   {
-    title: "Direct",
-    body: "Route water away from vulnerable areas where practical for the property."
-  }
-];
-
-const trustItems = [
-  "Owner/operator: Paul Chitwood",
-  "Oregon CCB #64538",
-  "Southern Oregon, Medford, and Rogue Valley service focus",
-  "No published street address until confirmed"
-];
-
-// TODO(final-assets): Replace these CSS-ready slots with approved local project photos in public/images/.
-const galleryItems = [
-  {
-    title: "Roofline profile",
-    body: "Close-up detail of a finished continuous gutter line.",
-    slot: "project-roofline-profile.jpg"
-  },
-  {
-    title: "Downspout routing",
-    body: "Approved image showing how water is carried away from the home.",
-    slot: "project-downspout-routing.jpg"
-  },
-  {
-    title: "Finished exterior",
-    body: "Curb-facing finished installation after business approval.",
-    slot: "project-finished-exterior.jpg"
-  }
-];
-
-// TODO(final-assets): Swap these comparison modules for real before/after pairs when approved.
-const beforeAfterItems = [
-  {
-    title: "Before",
-    body: "Use an approved photo of the existing gutter, runoff, or roofline condition before work begins.",
-    slot: "before-existing-runoff.jpg"
-  },
-  {
-    title: "After",
-    body: "Use the matching approved finished installation photo from the same angle where practical.",
-    slot: "after-finished-runoff-control.jpg"
-  }
-];
-
-// TODO(final-assets): Replace these process slots with real fabrication, installation, and local context photos.
-const assetRoadmapItems = [
-  {
-    label: "Fabrication",
-    title: "On-site continuous gutter forming",
-    body: "Best for a clean horizontal photo of equipment forming gutter material.",
-    slot: "fabrication-continuous-gutter-forming.jpg"
-  },
-  {
-    label: "Installation",
-    title: "Roofline install detail",
-    body: "Best for an approved crew-safe installation detail without showing unsafe work conditions.",
-    slot: "install-roofline-detail.jpg"
-  },
-  {
-    label: "Local context",
-    title: "Southern Oregon home exterior",
-    body: "Best for a real service-area exterior or landscape reference approved by the client.",
-    slot: "southern-oregon-home-context.jpg"
-  },
-  {
-    label: "Company",
-    title: "Owner or company photo",
-    body: "Use only if Paul approves being shown, or use a company vehicle/equipment photo instead.",
-    slot: "owner-or-company-approved.jpg"
+    title: "Company image",
+    use: "Owner-approved photo, vehicle, or equipment",
+    file: "owner-or-company-approved.jpg"
   }
 ];
 
@@ -176,10 +114,6 @@ const faqs = [
     question: "Can gutter protection be added?",
     answer:
       "Yes. Gutter protection can be discussed during the quote, especially for homes with trees or recurring debris."
-  },
-  {
-    question: "What areas do you serve?",
-    answer: `${siteData.businessName} serves homeowners and property owners across ${siteData.serviceArea}, including Medford and the Rogue Valley.`
   }
 ];
 
@@ -209,7 +143,7 @@ const localBusinessSchema = {
 
 export default function Home() {
   return (
-    <main className="pb-20 sm:pb-0">
+    <main className="cinematic-page pb-20 sm:pb-0">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -218,21 +152,18 @@ export default function Home() {
       <ScrollSceneController />
       <Header />
       <Hero />
-      <StormProblem />
-      <Solution />
+      <WaterPath />
+      <RiskSection />
       <Services />
-      <WhyContinuous />
       <Process />
-      <LocalTrust />
-      <Gallery />
-      <AssetRoadmap />
+      <AssetSlots />
       <Faq />
-      <Contact />
+      <Quote />
       <FinalCta />
       <Footer />
       <a
         data-cta
-        className="fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center rounded-md bg-amber px-5 text-center text-sm font-bold uppercase tracking-[0.12em] text-ink shadow-amber sm:hidden"
+        className="mobile-call fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center rounded-md bg-amber px-5 text-center text-sm font-bold uppercase tracking-[0.12em] text-ink shadow-amber sm:hidden"
         href={siteData.phoneHref}
       >
         Call {siteData.phoneNumber}
@@ -243,13 +174,11 @@ export default function Home() {
 
 function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-ink/78 px-4 py-3 backdrop-blur-xl sm:px-6 lg:px-8">
+    <header className="site-header fixed inset-x-0 top-0 z-40 px-4 py-4 sm:px-6 lg:px-8">
       <div className="section-shell flex items-center justify-between gap-4">
-        <a href="#" className="min-w-0">
-          <span className="block text-sm font-bold uppercase tracking-[0.16em] text-zinc-50">Southern Oregon</span>
-          <span className="block truncate text-xs font-bold uppercase tracking-[0.16em] text-rain">
-            Continuous Gutters Inc.
-          </span>
+        <a className="brand-mark min-w-0" href="#">
+          <span>Southern Oregon</span>
+          <strong>Continuous Gutters Inc.</strong>
         </a>
         <nav aria-label="Primary navigation" className="flex items-center gap-2 sm:gap-3">
           <Button className="hidden lg:inline-flex" href="#services" variant="ghost">
@@ -267,22 +196,17 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="hero-stage relative min-h-screen overflow-hidden border-b border-white/10 px-4 pt-24 sm:px-6 lg:px-8">
-      <div className="storm-orbit" aria-hidden="true" />
-      <div className="rain-field" aria-hidden="true" />
-      <SceneCanvasLoader />
-      <div className="section-shell relative z-10 grid min-h-[calc(100svh-6rem)] items-center gap-10 py-12 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
-          <SectionLabel>Stormwater protection for Southern Oregon homes</SectionLabel>
-          <RevealText
-            as="h1"
-            className="cinematic-type mt-6 max-w-5xl text-5xl font-bold leading-[0.9] text-zinc-50 sm:text-7xl lg:text-8xl"
-          >
-            Built for Southern Oregon Storms.
-          </RevealText>
+    <section className="hero-cinema relative min-h-screen overflow-hidden px-4 pt-24 sm:px-6 lg:px-8">
+      <StormAtmosphere />
+      <div className="section-shell relative z-10 grid min-h-[calc(100svh-6rem)] items-center gap-10 py-12 lg:grid-cols-[1.02fr_0.98fr]">
+        <div className="hero-copy">
+          <SectionKicker>Stormwater protection for Southern Oregon homes</SectionKicker>
+          <h1 data-reveal className="cinematic-type mt-6 max-w-5xl text-5xl font-bold leading-[0.88] text-zinc-50 sm:text-7xl lg:text-8xl">
+            Give rain a controlled path.
+          </h1>
           <p data-reveal className="mt-7 max-w-2xl text-xl font-semibold leading-8 text-zinc-100 sm:text-2xl sm:leading-9">
-            Seamless continuous gutters designed to move water away from your roofline, siding, walkways, landscaping,
-            and foundation.
+            Custom-fit continuous gutter systems designed to move roof water away from siding, walkways, landscaping,
+            and foundation edges.
           </p>
           <div data-reveal className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href={siteData.phoneHref}>{siteData.ctas.primary}</Button>
@@ -290,50 +214,60 @@ function Hero() {
               Request a Gutter Estimate
             </Button>
           </div>
-          <dl data-reveal className="mt-9 grid gap-3 sm:grid-cols-3">
-            {["Seamless runs", "Water control", "CCB #64538"].map((item) => (
-              <div className="hero-proof" key={item}>
-                <dt className="sr-only">Trust marker</dt>
-                <dd>{item}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <aside className="storm-card" data-card>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-rain">Water path</p>
-          <h2 className="mt-5 text-3xl font-semibold leading-tight text-zinc-50">
-            From roof edge to controlled runoff.
-          </h2>
-          <p className="mt-5 leading-7 text-zinc-300">
-            The job is simple to describe and important to get right: capture roof water, carry it cleanly, and send it
-            where it belongs.
-          </p>
-          <div className="roofline-diagram mt-8" aria-hidden="true">
-            <span className="roofline-diagram__roof" />
-            <span className="roofline-diagram__gutter" />
-            <span className="roofline-diagram__flow" />
+          <div data-reveal className="hero-proof-line mt-8" aria-label="Business markers">
+            <span>Owner-operated</span>
+            <span>{siteData.serviceArea}</span>
+            <span>Oregon CCB #64538</span>
           </div>
-        </aside>
+        </div>
+        <div className="hero-roof-stage" aria-label="Cinematic roofline water path">
+          <div className="roof-visual">
+            <span className="roof-visual__mountain" />
+            <span className="roof-visual__plane" />
+            <span className="roof-visual__gutter" />
+            <span className="roof-visual__flow roof-visual__flow--one" />
+            <span className="roof-visual__flow roof-visual__flow--two" />
+            <span className="roof-visual__drop" />
+            <div className="roof-visual__caption">
+              <p>Roof edge to downspout</p>
+              <strong>Controlled runoff starts at the fit.</strong>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-function StormProblem() {
+function StormAtmosphere() {
   return (
-    <section data-scroll-scene className="section-band px-4 py-20 sm:px-6 lg:px-8">
+    <>
+      <div className="storm-sky" aria-hidden="true" />
+      <div className="rain-field" aria-hidden="true" />
+      <div className="terrain-line" aria-hidden="true" />
+    </>
+  );
+}
+
+function WaterPath() {
+  return (
+    <section data-cinematic-journey data-scroll-scene className="water-path px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell">
-        <div className="max-w-3xl">
-          <SectionLabel>Stormwater problem</SectionLabel>
-          <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-            Rain becomes a threat when it loses the path.
+        <div className="path-intro">
+          <SectionKicker>One connected system</SectionKicker>
+          <h2 data-reveal className="cinematic-type mt-5 max-w-5xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
+            The page follows the same path water should follow.
           </h2>
         </div>
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {problemCards.map((card) => (
-            <article className="surface-panel water-card rounded-lg p-6" data-card key={card.title}>
-              <h3 className="text-xl font-semibold text-zinc-50">{card.title}</h3>
-              <p className="mt-4 leading-7 text-zinc-300">{card.body}</p>
+        <div className="path-stage mt-12">
+          <div className="path-line" aria-hidden="true">
+            <span />
+          </div>
+          {waterPath.map((step, index) => (
+            <article data-card data-journey-panel className="path-step" key={step.title}>
+              <p>{String(index + 1).padStart(2, "0")} / {step.label}</p>
+              <h3>{step.title}</h3>
+              <span>{step.body}</span>
             </article>
           ))}
         </div>
@@ -342,26 +276,23 @@ function StormProblem() {
   );
 }
 
-function Solution() {
+function RiskSection() {
   return (
-    <section data-scroll-scene className="section-band section-band--metal border-y border-white/10 px-4 py-20 sm:px-6 lg:px-8">
-      <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <section data-scroll-scene className="editorial-section px-4 py-20 sm:px-6 lg:px-8">
+      <div className="section-shell grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
-          <SectionLabel>Seamless continuous gutter solution</SectionLabel>
+          <SectionKicker>Why the roofline matters</SectionKicker>
           <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-            Custom formed to take control at the roofline.
+            Stormwater damage does not start with drama. It starts with direction.
           </h2>
-          <p data-reveal className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-            Continuous gutters give runoff a cleaner route across the home, with fewer joints than sectional systems and
-            a fit that is built around the actual roofline.
+          <p data-reveal className="mt-6 text-lg leading-8 text-zinc-300">
+            Water that misses the gutter, overruns a corner, or exits in the wrong place can create repeat problems
+            around the exterior. The right system makes the route visible, practical, and easier to maintain.
           </p>
         </div>
-        <div className="flow-panel" data-card>
-          {solutionPoints.map((point, index) => (
-            <div className="flow-step" key={point}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>{point}</p>
-            </div>
+        <div className="risk-map" data-card>
+          {risks.map((risk) => (
+            <span key={risk}>{risk}</span>
           ))}
         </div>
       </div>
@@ -371,41 +302,20 @@ function Solution() {
 
 function Services() {
   return (
-    <section data-scroll-scene id="services" className="section-band px-4 py-20 sm:px-6 lg:px-8">
+    <section data-scroll-scene id="services" className="services-section px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell">
-        <SectionLabel>Services</SectionLabel>
-        <h2 data-reveal className="cinematic-type mt-5 max-w-4xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-          Precision gutter work for rooflines, runoff, and curb appeal.
-        </h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {serviceDetails.map((service) => (
-            <article className="service-card" data-card key={service.title}>
-              <div className="service-card__shine" aria-hidden="true" />
-              <h3 className="text-xl font-semibold text-zinc-50">{service.title}</h3>
-              <p className="mt-4 leading-7 text-zinc-300">{service.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WhyContinuous() {
-  return (
-    <section data-scroll-scene className="section-band border-y border-white/10 bg-zinc-950 px-4 py-20 sm:px-6 lg:px-8">
-      <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <SectionLabel>Why it matters here</SectionLabel>
-          <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-            Southern Oregon homes need water movement that makes sense.
+        <div className="section-head">
+          <SectionKicker>Services</SectionKicker>
+          <h2 data-reveal className="cinematic-type mt-5 max-w-5xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
+            Continuous gutter work shaped around the home, not a template.
           </h2>
         </div>
-        <div className="grid gap-5">
-          {whyItems.map((item) => (
-            <article className="surface-panel rounded-lg p-6" data-card key={item.title}>
-              <h3 className="text-xl font-semibold text-zinc-50">{item.title}</h3>
-              <p className="mt-3 leading-7 text-zinc-300">{item.body}</p>
+        <div className="service-stream mt-12">
+          {services.map((service, index) => (
+            <article data-card className="service-row" key={service.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{service.title}</h3>
+              <p>{service.body}</p>
             </article>
           ))}
         </div>
@@ -416,18 +326,22 @@ function WhyContinuous() {
 
 function Process() {
   return (
-    <section data-scroll-scene className="section-band px-4 py-20 sm:px-6 lg:px-8">
-      <div className="section-shell">
-        <SectionLabel>Process</SectionLabel>
-        <h2 data-reveal className="cinematic-type mt-5 max-w-4xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-          Measured, fabricated, and installed with a clear water-control purpose.
-        </h2>
-        <ol className="process-track mt-10">
-          {processSteps.map((step, index) => (
-            <li className="process-step" data-card key={step.title}>
-              <span className="process-step__number">{String(index + 1).padStart(2, "0")}</span>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
+    <section data-scroll-scene className="process-section px-4 py-20 sm:px-6 lg:px-8">
+      <div className="section-shell grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+        <div>
+          <SectionKicker>Install rhythm</SectionKicker>
+          <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
+            Measured, formed, installed, and directed.
+          </h2>
+          <p data-reveal className="mt-6 leading-8 text-zinc-300">
+            The process stays practical: understand the water, fit the gutter, and finish the downspout path.
+          </p>
+        </div>
+        <ol className="process-flow">
+          {process.map((step, index) => (
+            <li data-card key={step}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{step}</p>
             </li>
           ))}
         </ol>
@@ -436,106 +350,31 @@ function Process() {
   );
 }
 
-function LocalTrust() {
+function AssetSlots() {
   return (
-    <section data-scroll-scene className="section-band section-band--warm border-y border-white/10 px-4 py-20 sm:px-6 lg:px-8">
-      <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div>
-          <SectionLabel>Local owner-operated trust</SectionLabel>
-          <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-            Talk directly with Paul about the water around your home.
-          </h2>
-          <p data-reveal className="mt-6 leading-8 text-zinc-300">
-            The site stays focused on verifiable business information: local service, practical gutter work, and direct
-            quote paths without invented awards, reviews, or warranty claims.
-          </p>
-        </div>
-        <div className="grid gap-5">
-          <div className="trust-grid">
-            {trustItems.map((item) => (
-              <div className="trust-pill" data-card key={item}>
-                {item}
-              </div>
-            ))}
-          </div>
-          <div className="owner-photo-slot" data-card>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-rain">Approved company image slot</p>
-            <p className="mt-3 text-sm leading-6 text-zinc-400">
-              Ready for an owner-approved photo, company vehicle, equipment detail, or clean job-site image.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Gallery() {
-  return (
-    <section data-scroll-scene className="section-band px-4 py-20 sm:px-6 lg:px-8">
+    <section data-scroll-scene className="asset-section px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell">
-        <SectionLabel>Project photography slots</SectionLabel>
-        <h2 data-reveal className="cinematic-type mt-5 max-w-4xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-          Designed to look complete now, ready for approved photos later.
-        </h2>
-        <p data-reveal className="mt-6 max-w-3xl leading-8 text-zinc-300">
-          These visual modules are intentionally styled as premium asset slots until real local project photography is
-          approved. No fake projects, reviews, or before-and-after claims are shown.
-        </p>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {galleryItems.map((item) => (
-            <article className="gallery-card" data-card key={item.title}>
-              <div className="gallery-card__image">
-                <span>{item.slot}</span>
-              </div>
-              <div className="p-5">
-                <h3 className="font-semibold text-zinc-50">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">{item.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="before-after-grid mt-5">
-          {beforeAfterItems.map((item) => (
-            <article className="compare-card" data-card key={item.title}>
-              <div className="compare-card__image">
-                <span>{item.title}</span>
-              </div>
-              <div className="p-5">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber">{item.slot}</p>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">{item.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AssetRoadmap() {
-  return (
-    <section data-scroll-scene className="section-band section-band--metal border-y border-white/10 px-4 py-20 sm:px-6 lg:px-8">
-      <div className="section-shell grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
-        <div>
-          <SectionLabel>Asset-ready system</SectionLabel>
-          <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-            Built for real photos when the client is ready.
+        <div className="asset-head">
+          <SectionKicker>Approved photography slots</SectionKicker>
+          <h2 data-reveal className="cinematic-type mt-5 max-w-5xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
+            Premium placeholders now. Real Southern Oregon work when approved.
           </h2>
-          <p data-reveal className="mt-6 leading-8 text-zinc-300">
-            The site can accept final photography without restructuring the page. Until then, these modules keep the
-            experience polished and honest.
+          <p data-reveal className="mt-6 max-w-3xl leading-8 text-zinc-300">
+            These frames are intentionally honest asset slots. They keep the experience polished without showing fake
+            projects, invented before-and-after claims, or stock-looking contractor proof.
           </p>
         </div>
-        <div className="asset-roadmap-grid">
-          {assetRoadmapItems.map((item) => (
-            <article className="asset-roadmap-card" data-card key={item.slot}>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-rain">{item.label}</p>
-                <h3 className="mt-3 text-xl font-semibold text-zinc-50">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">{item.body}</p>
+        <div className="asset-grid mt-12">
+          {imageSlots.map((slot, index) => (
+            <article data-card className="asset-frame" key={slot.file}>
+              <div className="asset-frame__image">
+                <span>{String(index + 1).padStart(2, "0")}</span>
               </div>
-              <p className="asset-file-name">{item.slot}</p>
+              <div className="asset-frame__copy">
+                <h3>{slot.title}</h3>
+                <p>{slot.use}</p>
+                <small>{slot.file}</small>
+              </div>
             </article>
           ))}
         </div>
@@ -546,19 +385,19 @@ function AssetRoadmap() {
 
 function Faq() {
   return (
-    <section data-scroll-scene className="section-band border-y border-white/10 bg-zinc-950 px-4 py-20 sm:px-6 lg:px-8">
+    <section data-scroll-scene className="faq-section px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <SectionLabel>FAQ</SectionLabel>
+          <SectionKicker>FAQ</SectionKicker>
           <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
             Clear answers before the quote.
           </h2>
         </div>
-        <div className="grid gap-4">
+        <div className="faq-list">
           {faqs.map((faq) => (
-            <article className="surface-panel rounded-lg p-6" data-card key={faq.question}>
-              <h3 className="text-xl font-semibold text-zinc-50">{faq.question}</h3>
-              <p className="mt-4 leading-7 text-zinc-300">{faq.answer}</p>
+            <article data-card key={faq.question}>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
             </article>
           ))}
         </div>
@@ -567,20 +406,20 @@ function Faq() {
   );
 }
 
-function Contact() {
+function Quote() {
   return (
-    <section data-scroll-scene id="quote" className="section-band px-4 py-20 sm:px-6 lg:px-8">
+    <section data-scroll-scene id="quote" className="quote-section px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-        <div>
-          <SectionLabel>Request a quote</SectionLabel>
+        <div className="quote-copy">
+          <SectionKicker>Request a quote</SectionKicker>
           <h2 data-reveal className="cinematic-type mt-5 text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-            Protect your roofline before the next storm cycle.
+            Protect the roofline before the next storm cycle.
           </h2>
           <p data-reveal className="mt-6 leading-8 text-zinc-300">
-            Send the project details through the form or call Paul directly. Include what you are seeing at the
-            roofline, downspouts, walkways, or landscape edges so the request is easy to review.
+            Send the project details through the form or call directly. Include what you are seeing at the roofline,
+            downspouts, walkways, or landscape edges so the request is easy to review.
           </p>
-          <a data-cta className="mt-7 block text-3xl font-bold text-amber" href={siteData.phoneHref}>
+          <a data-cta className="quote-phone mt-7 inline-flex" href={siteData.phoneHref}>
             {siteData.phoneNumber}
           </a>
         </div>
@@ -594,9 +433,9 @@ function FinalCta() {
   return (
     <section className="final-cta px-4 py-20 sm:px-6 lg:px-8">
       <div className="section-shell text-center">
-        <SectionLabel>Southern Oregon Continuous Gutters Inc.</SectionLabel>
+        <SectionKicker>Southern Oregon Continuous Gutters Inc.</SectionKicker>
         <h2 className="cinematic-type mx-auto mt-5 max-w-4xl text-4xl font-bold leading-none text-zinc-50 sm:text-6xl">
-          Give rain a better path around your home.
+          A cleaner path for the rain around your home.
         </h2>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button href={siteData.phoneHref}>Call for a Quote</Button>
@@ -611,10 +450,10 @@ function FinalCta() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-ink px-4 py-10 sm:px-6 lg:px-8">
+    <footer className="site-footer px-4 py-10 sm:px-6 lg:px-8">
       <div className="section-shell flex flex-col justify-between gap-5 text-sm text-zinc-400 sm:flex-row">
         <p>
-          {siteData.businessName} - Owner/operator {siteData.ownerName} - {siteData.serviceArea} - Oregon CCB #64538
+          {siteData.businessName} - {siteData.serviceArea} - Oregon CCB #64538
         </p>
         <a className="font-semibold text-amber hover:text-amber/85" href={siteData.phoneHref}>
           {siteData.phoneNumber}
@@ -622,4 +461,8 @@ function Footer() {
       </div>
     </footer>
   );
+}
+
+function SectionKicker({ children }: { children: React.ReactNode }) {
+  return <p className="section-label text-xs font-bold uppercase tracking-[0.24em] text-rain">{children}</p>;
 }
