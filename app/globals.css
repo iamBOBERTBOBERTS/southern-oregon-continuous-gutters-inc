@@ -253,7 +253,7 @@ textarea {
 }
 
 .section-shell {
-  width: min(1120px, calc(100vw - 32px));
+  width: min(1120px, 100%);
   margin-inline: auto;
 }
 

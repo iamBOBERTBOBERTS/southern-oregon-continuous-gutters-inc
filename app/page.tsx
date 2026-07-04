@@ -577,8 +577,8 @@ function Contact() {
             Protect your roofline before the next storm cycle.
           </h2>
           <p data-reveal className="mt-6 leading-8 text-zinc-300">
-            Send the project details through the form or call Paul directly. The quote workflow remains connected to the
-            existing `/api/quote` route and Base44 storage path when configured.
+            Send the project details through the form or call Paul directly. Include what you are seeing at the
+            roofline, downspouts, walkways, or landscape edges so the request is easy to review.
           </p>
           <a data-cta className="mt-7 block text-3xl font-bold text-amber" href={siteData.phoneHref}>
             {siteData.phoneNumber}

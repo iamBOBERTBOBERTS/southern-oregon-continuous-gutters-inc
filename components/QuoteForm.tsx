@@ -176,7 +176,7 @@ export function QuoteForm() {
         {status === "loading" ? "Submitting..." : "Request Quote"}
       </button>
       <p className="mt-4 text-xs leading-5 text-zinc-500">
-        This form uses the existing website quote API. Call {siteData.phoneNumber} if the request is urgent.
+        Requests are sent through the website form. Call {siteData.phoneNumber} if the request is urgent.
       </p>
     </form>
   );
