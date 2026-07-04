@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { BrandMark } from "@/components/BrandMark";
 import { ScrollSceneController } from "@/components/motion/ScrollSceneController";
 import { QuoteForm } from "@/components/QuoteForm";
 import { siteData } from "@/lib/site-data";
@@ -177,8 +178,7 @@ function Header() {
     <header className="site-header fixed inset-x-0 top-0 z-40 px-4 py-4 sm:px-6 lg:px-8">
       <div className="section-shell flex items-center justify-between gap-4">
         <a className="brand-mark min-w-0" href="#">
-          <span>Southern Oregon</span>
-          <strong>Continuous Gutters Inc.</strong>
+          <BrandMark compact />
         </a>
         <nav aria-label="Primary navigation" className="flex items-center gap-2 sm:gap-3">
           <Button className="hidden lg:inline-flex" href="#services" variant="ghost">
@@ -451,11 +451,15 @@ function FinalCta() {
 function Footer() {
   return (
     <footer className="site-footer px-4 py-10 sm:px-6 lg:px-8">
-      <div className="section-shell flex flex-col justify-between gap-5 text-sm text-zinc-400 sm:flex-row">
-        <p>
-          {siteData.businessName} - {siteData.serviceArea} - Oregon CCB #64538
-        </p>
-        <a className="font-semibold text-amber hover:text-amber/85" href={siteData.phoneHref}>
+      <div className="section-shell footer-shell flex flex-col justify-between gap-5 text-sm text-zinc-400 sm:flex-row">
+        <div>
+          <BrandMark className="footer-brand" />
+          <p className="footer-business-line mt-4">
+            Southern Oregon Continuous Gutters Inc. - Lic. #64538
+          </p>
+          <p className="mt-1">{siteData.serviceArea}</p>
+        </div>
+        <a className="footer-phone font-semibold text-amber hover:text-amber/85" href={siteData.phoneHref}>
           {siteData.phoneNumber}
         </a>
       </div>
