@@ -24,31 +24,30 @@
 
 ## Logo / Brand Treatment Recommendation
 
-Use a clean text/SVG lockup inspired by the card instead of the photographed card image. The website should keep the dark cinematic stormwater direction, with the business-card blue used in the header lockup, section labels, roofline flow accents, subtle borders, and footer brand treatment.
+Use a clean text/SVG lockup inspired by the card instead of the photographed card image. The website should keep the dark premium stormwater direction, with the business-card blue used in the header lockup, section labels, roofline flow accents, subtle borders, and footer brand treatment.
 
 The live logo should:
 
-- Show Southern Oregon as a smaller, slightly script-like upper line using CSS styling only.
+- Show Southern Oregon as a smaller upper line.
 - Show Continuous Gutters as the dominant blue wordmark.
 - Keep Inc. as a small but visible suffix.
-- Use a simple black gutter/roofline SVG mark as a supporting detail, not as a large illustration.
+- Use a simple gutter/roofline SVG mark as a supporting detail.
 - Remain legible on mobile without truncation or ellipsis.
 
-The raw business-card photo should not be used as the website logo because it is a photographed print piece with perspective, shadows, edge wear, low contrast around the card background, and contact details that are not yet confirmed for public website display. A clean vector or official digital logo should replace the web-native lockup if the client provides one.
+The raw business-card photo should not be used as the website logo because it is a photographed print piece with perspective, shadows, edge wear, low contrast around the card background, and contact details that still require final launch confirmation.
 
-## Phone-Number Conflict
+## Phone-Number Strategy
 
-The current website primary CTA remains unchanged at 541-821-4258.
+The copy/business repair pass now uses `541-770-5785` as the public website CTA because the company/local-market brief identifies it as the strongest public company phone candidate.
 
-- Cell: 541-821-4258
-- Main/business: 541-770-5785
+- Public website phone candidate: 541-770-5785
+- Alternate/direct/cell candidate: 541-821-4258
 
-Before launch, confirm which number should be the primary website CTA and whether the secondary number should appear anywhere on the site. Do not change JSON-LD/schema phone data until this is confirmed.
+Before launch, Paul should confirm whether `541-770-5785` remains the primary public website phone and whether `541-821-4258` should appear anywhere publicly.
 
 ## Confirmation Needed Before Launch
 
 - Confirm primary website phone number.
-- Confirm whether to show 541-770-5785.
 - Confirm whether to show the cell number separately.
 - Confirm whether to show Paul Chitwood publicly.
 - Confirm whether to show pchit35@yahoo.com publicly.

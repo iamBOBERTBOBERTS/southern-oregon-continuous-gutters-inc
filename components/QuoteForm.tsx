@@ -10,6 +10,8 @@ type FormState = {
   email: string;
   service: string;
   message: string;
+  preferredContact: string;
+  callbackWindow: string;
   website: string;
 };
 
@@ -20,6 +22,8 @@ const initialState: FormState = {
   email: "",
   service: siteData.services[0],
   message: "",
+  preferredContact: "Phone call",
+  callbackWindow: "",
   website: ""
 };
 
@@ -39,15 +43,23 @@ export function QuoteForm() {
 
     if (!form.name.trim() || !form.phone.trim() || !form.email.trim() || !form.addressCity.trim() || !form.service.trim() || !form.message.trim()) {
       setStatus("error");
-      setMessage("Please complete the required fields, or call Paul at 541-821-4258.");
+      setMessage("Please check the required fields and try again.");
       return;
     }
 
     setStatus("loading");
+    const requestDetails = [
+      form.message.trim(),
+      form.preferredContact ? `Preferred contact: ${form.preferredContact}` : "",
+      form.callbackWindow.trim() ? `Preferred callback window: ${form.callbackWindow.trim()}` : ""
+    ].filter(Boolean).join("\n\n");
 
     try {
       const response = await fetch("/api/quote", {
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          message: requestDetails
+        }),
         headers: {
           "Content-Type": "application/json"
         },
@@ -56,26 +68,27 @@ export function QuoteForm() {
 
       if (!response.ok) {
         setStatus("error");
-        setMessage("The quote request could not be submitted. Please check the fields or call Paul directly.");
+        setMessage("Please check the required fields and try again.");
         return;
       }
 
       setForm(initialState);
       setStatus("success");
-      setMessage(`Quote request received. For direct scheduling, call Paul at ${siteData.phoneNumber}.`);
+      setMessage("Thank you. Your request has been received. We will review the project details and follow up about the next step.");
     } catch {
       setStatus("error");
-      setMessage(`Something went wrong submitting the form. Please call Paul at ${siteData.phoneNumber}.`);
+      setMessage(`Something went wrong submitting the form. Please call ${siteData.phoneNumber} for faster scheduling.`);
     }
   }
 
   return (
     <form className="surface-panel rounded-lg p-5 sm:p-7" onSubmit={handleSubmit}>
       <div className="mb-6 border-b border-white/10 pb-5">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-rain">Homeowner quote request</p>
-        <h3 className="mt-3 text-2xl font-semibold text-zinc-50">Tell Paul what water is doing around the home.</h3>
+        <p className="text-xs font-bold uppercase tracking-[0.22em] text-rain">Homeowner estimate request</p>
+        <h3 className="mt-3 text-2xl font-semibold text-zinc-50">Request a gutter estimate.</h3>
         <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Include the city, service need, and what you are seeing at the roofline or downspouts.
+          Tell us what you are seeing around the roofline, downspouts, walkways, or landscape edges. A clear request
+          helps us follow up with the right questions.
         </p>
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
@@ -112,14 +125,14 @@ export function QuoteForm() {
             placeholder="you@example.com"
           />
         </Field>
-        <Field label="Address / City" required>
+        <Field label="Service address or city" required>
           <input
             className="form-field"
             value={form.addressCity}
             onChange={(event) => updateField("addressCity", event.target.value)}
             autoComplete="street-address"
             required
-            placeholder="Street or city"
+            placeholder="Project address or city"
           />
         </Field>
       </div>
@@ -147,6 +160,28 @@ export function QuoteForm() {
         />
       </Field>
 
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <Field label="Preferred contact method">
+          <select
+            className="form-field"
+            value={form.preferredContact}
+            onChange={(event) => updateField("preferredContact", event.target.value)}
+          >
+            <option>Phone call</option>
+            <option>Text message</option>
+            <option>Email</option>
+          </select>
+        </Field>
+        <Field label="Preferred callback window">
+          <input
+            className="form-field"
+            value={form.callbackWindow}
+            onChange={(event) => updateField("callbackWindow", event.target.value)}
+            placeholder="Morning, afternoon, or best time"
+          />
+        </Field>
+      </div>
+
       <label className="hidden" aria-hidden="true">
         Website
         <input
@@ -173,10 +208,10 @@ export function QuoteForm() {
         data-cta=""
         disabled={status === "loading"}
       >
-        {status === "loading" ? "Submitting..." : "Request Quote"}
+        {status === "loading" ? "Submitting..." : "Request Estimate"}
       </button>
       <p className="mt-4 text-xs leading-5 text-zinc-500">
-        Requests are sent through the website form. Call {siteData.phoneNumber} if the request is urgent.
+        Requests are sent through the website form. For faster scheduling, call {siteData.phoneNumber}.
       </p>
     </form>
   );

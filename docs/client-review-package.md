@@ -1,69 +1,41 @@
 # Client Review Package
 
-Date: 2026-07-03
+Date: 2026-07-05
 
 ## Current Project Status
 
-The local Next.js website is in a client-review-ready state for Southern Oregon Continuous Gutters Inc. The current version is a polished, cinematic, asset-ready homepage that can be reviewed before final project photography and final business confirmations are available.
+The website is in a public copy/business-alignment repair phase. The goal is to make the current homepage credible for a real Southern Oregon gutter contractor before returning to advanced visual or 3D work.
 
-Latest completed phases:
-
-- Cinematic homepage MVP
-- Asset-ready homepage polish
-- Client-review QA polish
-
-Validation target remains:
-
-```powershell
-npm run typecheck
-npm run lint
-npm run build
-```
+The site is not final-launch-ready until Paul confirms the remaining business inputs and approves real project assets.
 
 ## What Has Been Built
 
-- Premium dark stormwater-protection homepage.
-- Sticky header with quote and phone CTAs.
-- Cinematic hero with storm, rain, roofline, and water-control visual motifs.
-- Stormwater problem section.
-- Seamless continuous gutter solution section.
-- Services section using safe, non-invented wording.
-- Southern Oregon relevance section.
-- Installation/process section.
-- Local owner-operated trust section.
-- Asset-ready project photography slots.
-- Before/after image slots without fake claims.
-- Fabrication, installation, local context, and company image slots.
-- FAQ section.
+- Dark, premium homeowner-facing homepage.
+- Header, phone CTA, quote CTA, and sticky mobile call path.
+- Hero focused on Medford and Southern Oregon seamless gutter work.
+- Roofline runoff story using practical gutter/downspout language.
+- Services section limited to safe public services.
+- Estimate/process section with conservative wording.
 - Quote form connected to the existing `/api/quote` workflow.
-- Final CTA and footer.
-- Mobile sticky call button.
-- Reduced-motion and low-power visual fallbacks from the existing implementation.
+- Footer with Oregon CCB #64538, Medford/Southern Oregon location language, and public phone CTA.
 
-## Intended Communication
+## What The Site Is Designed To Communicate
 
-The site is designed to communicate that Southern Oregon Continuous Gutters Inc. helps homeowners control roof runoff with custom-fit continuous gutter systems. The visual story is:
+Southern Oregon Continuous Gutters Inc. helps Medford and Southern Oregon homeowners move roof water away from siding, walkways, landscaping, and foundation edges with custom-fit seamless gutter systems, replacement, repair, maintenance, downspouts, and practical roofline water-control work.
 
-1. Southern Oregon weather puts pressure on rooflines.
-2. Uncontrolled runoff can affect fascia, siding, walkways, landscaping, and foundation edges.
-3. Continuous gutters give water a cleaner route.
-4. The system is measured, formed, installed, and routed with practical water-control intent.
-5. The homeowner has clear ways to call or request a quote.
+The site should feel premium, but the business message must stay clear: call the company or request an on-site estimate.
 
-The site should feel premium and cinematic while still staying practical for a local contractor website.
+## Current Public Business Details
 
-## Client Confirmations Needed
-
-| Item | Current site status | Client confirmation needed |
-| --- | --- | --- |
-| Correct public phone number | Uses `541-821-4258`. Earlier planning referenced `541-770-5785`. | Confirm one public number before launch. |
-| Service area | Uses Southern Oregon, Medford, and Rogue Valley wording. | Confirm exact cities/counties/regions to list. |
-| CCB #64538 prominence | Currently shown in hero proof, trust section, and footer. | Confirm whether this should stay prominent or move lower on the page. |
-| Paul Chitwood name usage | Currently shown as owner/operator. | Confirm whether Paul wants his name shown publicly and at this level of prominence. |
-| Street address | Not published. | Confirm whether it should remain unpublished. |
-| Final services list | Current services include continuous gutter installation, seamless gutter replacement, gutter repair, downspouts, gutter protection, exterior water management, residential gutter systems, and light commercial gutter systems. | Confirm approved final service list. |
-| Warranty or guarantee language | Not included. | Add only if the client provides substantiated, approved wording. |
-| Reviews, awards, financing, insurance claims, emergency service | Not included. | Add only if confirmed and approved by the client. |
+| Item | Current site status |
+| --- | --- |
+| Public phone | `541-770-5785` |
+| Alternate/direct cell | `541-821-4258`, documented only until Paul confirms usage |
+| Service area | Medford and Southern Oregon |
+| License | Oregon CCB #64538 |
+| Street address | Not published |
+| Public email | Not published |
+| Paul Chitwood name | Kept in internal business data and docs; not made more prominent on the homepage |
 
 ## Required Photo And Asset List
 
@@ -71,64 +43,60 @@ Use `docs/asset-intake-checklist.md` as the detailed intake map. Priority assets
 
 | Asset | Suggested file name | Where it will be used |
 | --- | --- | --- |
-| Hero roofline or storm/exterior image | `hero-southern-oregon-roofline-storm.jpg` | Optional hero background enhancement |
-| Finished roofline detail | `project-roofline-profile.jpg` | Project photography grid |
-| Downspout routing | `project-downspout-routing.jpg` | Project photography grid |
-| Finished exterior | `project-finished-exterior.jpg` | Project photography grid |
-| Before condition | `before-existing-runoff.jpg` | Before/after module |
-| After condition | `after-finished-runoff-control.jpg` | Before/after module |
-| Fabrication image | `fabrication-continuous-gutter-forming.jpg` | Asset-ready process/fabrication module |
-| Installation detail | `install-roofline-detail.jpg` | Asset-ready process/install module |
-| Owner or company image | `owner-or-company-approved.jpg` | Local trust/company image slot |
-| Southern Oregon context image | `southern-oregon-home-context.jpg` | Local service-area visual support |
+| Hero roofline or storm/exterior image | `hero-southern-oregon-roofline-storm.jpg` | Optional hero enhancement |
+| Finished roofline detail | `project-roofline-profile.jpg` | Project proof section |
+| Downspout routing | `project-downspout-routing.jpg` | Project proof section |
+| Finished exterior | `project-finished-exterior.jpg` | Project proof section |
+| Before condition | `before-existing-runoff.jpg` | Before/after module, if approved |
+| After condition | `after-finished-runoff-control.jpg` | Before/after module, if approved |
+| Fabrication image | `fabrication-continuous-gutter-forming.jpg` | Process support, if confirmed |
+| Installation detail | `install-roofline-detail.jpg` | Process support |
+| Owner or company image | `owner-or-company-approved.jpg` | Trust/company section, if approved |
+| Southern Oregon context image | `southern-oregon-home-context.jpg` | Local service-area support |
 
 ## Recommended Photo Examples
 
-- Close-up of a clean finished continuous gutter line.
-- Wide exterior showing a finished roofline.
-- Downspout route from gutter to discharge area.
-- Continuous gutter machine or material being formed.
-- Job-site detail that looks clean and safe.
-- Before/after pair from a similar angle.
+- Clean finished seamless gutter line.
+- Wide exterior showing completed roofline work.
+- Downspout path away from a walkway, bed, or foundation edge.
+- Repair/replacement condition before work begins.
+- Job-site detail that looks safe and professional.
 - Company truck, equipment, or owner photo if approved.
 - Southern Oregon home exterior or service-area context image.
 
-Avoid:
+Avoid images that expose private addresses, license plates, unsafe work practices, or unsupported results.
 
-- Photos that expose private addresses, license plates, or customer-identifying details without approval.
-- Unsafe ladder/roof-working scenes.
-- Dark images that make gutters impossible to see.
-- Any image that implies a warranty, guarantee, or result that has not been approved.
+## Business Info Confirmation Checklist
+
+- Confirm `541-770-5785` as the primary public website phone.
+- Confirm whether `541-821-4258` should appear publicly as a cell/direct number.
+- Confirm exact service area and any city list.
+- Confirm whether CCB #64538 should be prominent or footer-only.
+- Confirm whether Paul wants his name shown publicly.
+- Confirm whether `pchit35@yahoo.com` should be published.
+- Confirm whether the street address should remain unpublished.
+- Confirm approved final services list.
+- Confirm gutter protection only if offered.
+- Confirm commercial work only if offered.
+- Confirm warranty/guarantee language only if substantiated.
+- Confirm any insurance/bond language only with current proof.
 
 ## Launch-Readiness Checklist
 
-- Confirm public phone number.
-- Confirm final service area wording.
-- Confirm CCB #64538 placement.
-- Confirm Paul Chitwood name usage.
-- Confirm street address policy.
-- Confirm final services list.
-- Collect approved photos.
-- Replace asset slots with optimized images under `public/images/`.
-- Add real alt text for each final image.
-- Review final copy for unsupported claims.
-- Test phone links.
-- Test quote form locally.
-- Confirm Base44 production readiness if quote storage is required.
-- Run `npm run typecheck`.
-- Run `npm run lint`.
-- Run `npm run build`.
-- Verify mobile, tablet, and desktop layouts.
-- Deploy preview for client approval.
-- Verify logged-out public preview access.
+- Business confirmations complete.
+- Approved photos collected.
+- Public copy reviewed by Paul.
+- Unsupported claims removed.
+- Phone links tested.
+- Quote form tested.
+- Base44 production readiness confirmed if quote storage is required.
+- `npm run typecheck` passes.
+- `npm run lint` passes.
+- `npm run build` passes.
+- Mobile, tablet, and desktop visual QA passes.
+- Vercel preview reviewed from a logged-out browser.
+- Production deployment explicitly approved.
 
 ## Suggested Next Phase
 
-After the client provides approved photos and business confirmations, run the final content/photo polish pass:
-
-1. Add optimized images to `public/images/`.
-2. Replace CSS asset slots with real `Image` components.
-3. Tune crop, contrast, spacing, and alt text.
-4. Finalize service-area and business-info wording.
-5. Re-run validation.
-6. Deploy a preview for client review.
+After the copy/business repair preview is reviewed, collect approved photos and client confirmations. Then run the final content/photo polish pass before production launch decisions.

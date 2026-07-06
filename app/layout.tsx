@@ -29,7 +29,8 @@ export const metadata: Metadata = {
     "gutter installation Southern Oregon",
     "gutter replacement Southern Oregon",
     "downspouts Southern Oregon",
-    "gutter protection Southern Oregon",
+    "gutter repair Southern Oregon",
+    "gutter maintenance Southern Oregon",
     ...siteData.seoServices
   ],
   alternates: {

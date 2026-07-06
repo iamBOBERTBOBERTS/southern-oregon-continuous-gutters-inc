@@ -1,32 +1,37 @@
 export const siteData = {
   businessName: "Southern Oregon Continuous Gutters Inc.",
   ownerName: "Paul Chitwood",
-  phoneNumber: "541-821-4258",
-  phoneHref: "tel:+15418214258",
+  phoneNumber: "541-770-5785",
+  phoneHref: "tel:+15417705785",
+  alternatePhoneNumber: "541-821-4258",
+  licenseNumber: "64538",
+  establishedYear: "1990",
+  incorporationDate: "1998-01-07",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://southernoregoncontinuousgutters.com",
-  serviceArea: "Southern Oregon",
+  serviceArea: "Medford and Southern Oregon",
+  locality: "Medford, Oregon",
+  region: "Rogue Valley",
   services: [
-    "Continuous gutter installation",
-    "Seamless gutter replacement",
-    "Downspout installation",
-    "Gutter protection options",
-    "Exterior water management",
-    "Residential gutter systems",
-    "Light commercial gutter systems"
+    "Seamless gutter installation",
+    "Continuous gutter replacement",
+    "Gutter repair",
+    "Gutter maintenance",
+    "Downspouts",
+    "Roofline water control"
   ],
   seoServices: [
-    "continuous gutters",
-    "seamless gutters",
-    "gutter installation",
-    "gutter replacement",
+    "seamless gutter installation",
+    "continuous gutter replacement",
+    "gutter repair",
+    "gutter maintenance",
     "downspouts",
-    "gutter protection"
+    "roofline water control"
   ],
   description:
-    "Southern Oregon Continuous Gutters Inc. installs custom-fit continuous gutters and seamless gutter systems built for Southern Oregon storms.",
+    "Southern Oregon Continuous Gutters Inc. installs, replaces, repairs, and maintains seamless gutter systems and downspouts for Medford and Southern Oregon homes.",
   ctas: {
-    primary: "Call Paul: 541-821-4258",
-    secondary: "Request a Quote",
+    primary: "Call 541-770-5785",
+    secondary: "Request an On-Site Estimate",
     phoneShort: "Call"
   }
 } as const;
