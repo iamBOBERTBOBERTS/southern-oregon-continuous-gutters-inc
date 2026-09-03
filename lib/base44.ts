@@ -13,7 +13,9 @@ export function getBase44Client() {
     appId: base44AppId,
     options: {
       onError: (error: unknown) => {
-        console.error("Base44 request failed", error);
+        console.error("Base44 request failed", {
+          errorType: error instanceof Error ? error.name : "UnknownError"
+        });
       }
     }
   });

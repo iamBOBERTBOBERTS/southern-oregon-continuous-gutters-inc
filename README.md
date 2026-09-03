@@ -91,17 +91,19 @@ The quote form lives in `components/QuoteForm.tsx` and posts to `app/api/quote/r
 
 Current behavior:
 
-- Validates required fields.
-- Includes a honeypot field for basic spam filtering.
-- Stores submissions in the Base44 `QuoteRequest` entity when `BASE44_APP_ID` is configured and the entity has been pushed.
-- Falls back to server-side logging when `BASE44_APP_ID` is not configured.
+- Requires exact same-origin JSON, strict bounded fields, a honeypot, and a unique idempotency key.
+- Uses shared Redis-backed per-client and global limits; unavailable controls fail closed.
+- Keeps the production intake fail-closed until a private adapter can atomically bind durable
+  persistence to the idempotency record. The current Base44-plus-Redis sequence is not enabled.
+- Returns a bounded unavailable response when intake, storage, rate limiting, or fingerprint
+  configuration is incomplete. Customer PII is never used as fallback log storage.
 
 To connect email or CRM later:
 
-1. Add provider credentials as environment variables.
+1. Add provider credentials only in the deployment secret manager.
 2. Keep secrets out of source files.
 3. Update `app/api/quote/route.ts` to send the validated payload.
-4. Add production error logging before launch.
+4. Preserve non-PII operational logging and verify the distributed abuse controls before launch.
 
 See `docs/base44-integration.md` for the Base44 app ID, entity schema, validation notes, entity push command, and remaining Base44 app availability blocker.
 

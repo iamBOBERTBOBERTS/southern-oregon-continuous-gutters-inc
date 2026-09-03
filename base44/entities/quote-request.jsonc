@@ -47,7 +47,7 @@
   },
   "required": ["name", "phone", "email", "address_city", "service", "message", "submitted_at"],
   "rls": {
-    "create": true,
+    "create": false,
     "read": {
       "user_condition": {
         "role": "admin"
