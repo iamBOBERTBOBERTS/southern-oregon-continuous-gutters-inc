@@ -1,100 +1,127 @@
 import { NextResponse } from "next/server";
-import { getBase44Client, isBase44Configured } from "@/lib/base44";
-import { siteData } from "@/lib/site-data";
 
-type QuotePayload = {
-  addressCity?: unknown;
-  email?: unknown;
-  message?: unknown;
-  name?: unknown;
-  phone?: unknown;
-  service?: unknown;
-  website?: unknown;
+import { getBase44Client, isBase44Configured } from "@/lib/base44";
+import {
+  isSameOriginQuoteRequest,
+  QuoteRequestError,
+  quoteIdempotencyKey,
+  quotePayloadDigest,
+  readQuoteRequest,
+} from "@/lib/security/quote-request";
+import {
+  completeQuoteSubmission,
+  enforceQuoteRateLimit,
+  releaseQuoteSubmission,
+  reserveQuoteSubmission,
+} from "@/lib/security/quote-rate-limit";
+
+const responseHeaders = {
+  "Cache-Control": "no-store",
+  "X-Content-Type-Options": "nosniff",
 };
 
-const requiredFields: Array<keyof Pick<QuotePayload, "addressCity" | "email" | "message" | "name" | "phone" | "service">> = [
-  "addressCity",
-  "email",
-  "message",
-  "name",
-  "phone",
-  "service"
-];
+function json(body: unknown, status = 200, headers: HeadersInit = {}) {
+  const mergedHeaders = new Headers(responseHeaders);
+  new Headers(headers).forEach((value, key) => mergedHeaders.set(key, value));
+  return NextResponse.json(body, { status, headers: mergedHeaders });
+}
+
+function intakeReady(): boolean {
+  // The current Base44 SDK write and Redis idempotency completion cannot be
+  // committed atomically. Keep this route fail-closed until a private storage
+  // adapter can bind persistence and idempotency in one durable transaction.
+  const durableIdempotentStorageImplemented = false;
+  return process.env.QUOTE_INTAKE_ENABLED === "true"
+    && isBase44Configured
+    && durableIdempotentStorageImplemented;
+}
 
 export async function POST(request: Request) {
-  let payload: QuotePayload;
+  let idempotencyKey: string | null = null;
+  let payloadDigest: string | null = null;
+  let reserved = false;
+  let persisted = false;
 
   try {
-    payload = (await request.json()) as QuotePayload;
-  } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
-  }
+    if (!isSameOriginQuoteRequest(request)) {
+      throw new QuoteRequestError(403, "origin_rejected", "Request origin is not allowed.");
+    }
+    if (!intakeReady()) {
+      throw new QuoteRequestError(503, "intake_unavailable", "Quote intake is temporarily unavailable.");
+    }
 
-  if (typeof payload.website === "string" && payload.website.trim()) {
-    console.warn("Blocked likely spam quote submission via honeypot.");
-    return NextResponse.json({ ok: true });
-  }
+    await enforceQuoteRateLimit(request);
+    idempotencyKey = quoteIdempotencyKey(request);
+    const payload = await readQuoteRequest(request);
+    payloadDigest = quotePayloadDigest(payload);
 
-  const missingFields = requiredFields.filter((field) => !isPresent(payload[field]));
+    if (payload.website) return json({ ok: true }, 202);
 
-  if (missingFields.length > 0) {
-    return NextResponse.json(
-      {
-        error: "Missing required fields.",
-        fields: missingFields
-      },
-      { status: 400 }
-    );
-  }
+    const reservation = await reserveQuoteSubmission(idempotencyKey, payloadDigest);
+    if (reservation.kind === "replay") {
+      return json(reservation.response.body, reservation.response.status);
+    }
+    if (reservation.kind === "pending") {
+      throw new QuoteRequestError(
+        409,
+        "request_in_progress",
+        "This quote request is still processing.",
+        2,
+      );
+    }
+    if (reservation.kind === "conflict") {
+      throw new QuoteRequestError(409, "idempotency_conflict", "This request key was already used.");
+    }
+    reserved = true;
 
-  const submission = {
-    address_city: clean(payload.addressCity),
-    email: clean(payload.email),
-    message: clean(payload.message),
-    name: clean(payload.name),
-    phone: clean(payload.phone),
-    service: clean(payload.service),
-    source: "website",
-    status: "new",
-    submitted_at: new Date().toISOString()
-  };
-
-  if (isBase44Configured) {
     const base44 = getBase44Client();
+    if (!base44) {
+      throw new QuoteRequestError(503, "intake_unavailable", "Quote intake is temporarily unavailable.");
+    }
 
     try {
-      await base44?.entities.QuoteRequest.create(submission);
-    } catch (error) {
-      console.error("Quote request could not be stored in Base44", {
-        business: siteData.businessName,
-        error
+      await base44.entities.QuoteRequest.create({
+        address_city: payload.addressCity,
+        email: payload.email,
+        message: payload.message,
+        name: payload.name,
+        phone: payload.phone,
+        service: payload.service,
+        source: "website",
+        status: "new",
+        submitted_at: new Date().toISOString(),
       });
-
-      return NextResponse.json(
-        {
-          error: "Quote request could not be stored."
-        },
-        { status: 502 }
-      );
+      persisted = true;
     } finally {
-      base44?.cleanup();
+      try {
+        base44.cleanup();
+      } catch {
+        // A cleanup failure must not turn a confirmed provider write into a replayable request.
+      }
     }
-  } else {
-    console.warn("BASE44_APP_ID is not configured. Quote request was validated but not stored in Base44.");
+
+    const response = { body: { ok: true, stored: true }, status: 201 } as const;
+    await completeQuoteSubmission(idempotencyKey, payloadDigest, response);
+    reserved = false;
+    return json(response.body, response.status);
+  } catch (error) {
+    if (reserved && !persisted && idempotencyKey && payloadDigest) {
+      await releaseQuoteSubmission(idempotencyKey, payloadDigest);
+    }
+
+    if (error instanceof QuoteRequestError) {
+      const headers: HeadersInit = error.retryAfter
+        ? { "Retry-After": String(error.retryAfter) }
+        : {};
+      return json({ ok: false, code: error.code, error: error.message }, error.status, headers);
+    }
+
+    console.error("Quote intake failed", {
+      errorType: error instanceof Error ? error.name : "UnknownError",
+    });
+    return json(
+      { ok: false, code: "intake_unavailable", error: "Quote intake is temporarily unavailable." },
+      502,
+    );
   }
-
-  console.info("Quote request received", {
-    business: siteData.businessName,
-    submission
-  });
-
-  return NextResponse.json({ ok: true, stored: isBase44Configured });
-}
-
-function isPresent(value: unknown) {
-  return typeof value === "string" && value.trim().length > 0;
-}
-
-function clean(value: unknown) {
-  return typeof value === "string" ? value.trim() : "";
 }

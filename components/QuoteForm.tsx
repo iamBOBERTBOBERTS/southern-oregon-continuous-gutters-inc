@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { siteData } from "@/lib/site-data";
 
 type FormState = {
@@ -27,6 +27,7 @@ export function QuoteForm() {
   const [form, setForm] = useState<FormState>(initialState);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const idempotencyKey = useRef<string | null>(null);
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -44,12 +45,14 @@ export function QuoteForm() {
     }
 
     setStatus("loading");
+    idempotencyKey.current ??= crypto.randomUUID();
 
     try {
       const response = await fetch("/api/quote", {
         body: JSON.stringify(form),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Idempotency-Key": idempotencyKey.current
         },
         method: "POST"
       });
@@ -61,6 +64,7 @@ export function QuoteForm() {
       }
 
       setForm(initialState);
+      idempotencyKey.current = null;
       setStatus("success");
       setMessage(`Quote request received. For direct scheduling, call Paul at ${siteData.phoneNumber}.`);
     } catch {

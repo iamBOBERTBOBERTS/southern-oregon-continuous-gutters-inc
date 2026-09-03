@@ -6,8 +6,13 @@ The quote workflow is prepared to store validated website quote requests in Base
 
 - Local Base44 project config lives in `base44/config.jsonc`.
 - The `QuoteRequest` entity schema lives in `base44/entities/quote-request.jsonc`.
-- The Next.js quote API creates `QuoteRequest` records through `@base44/sdk` when `BASE44_APP_ID` is configured.
-- If `BASE44_APP_ID` is missing, the API preserves the prior fallback behavior: it validates and logs the request, returns success, and marks `stored: false`.
+- The Next.js quote API is hard-disabled until a private storage adapter can atomically bind the
+  durable write to its idempotency record. Configuration alone cannot enable the current
+  Base44-plus-Redis sequence.
+- There is no logging-as-storage fallback. A browser receives success only after the provider
+  confirms that the request was stored.
+- The route requires exact same-origin JSON, a 16 KiB body limit, strict field allowlists,
+  per-client and global distributed limits, and an idempotency key.
 
 ## Base44 app
 
@@ -36,7 +41,8 @@ BASE44_APP_ID=6a470f4891bc3549991572ff
 - `source`
 - `status`
 
-RLS allows public create access for form submissions and restricts read, update, and delete access to admin users.
+RLS denies anonymous public create, read, update, and delete access. This closes the direct Base44
+ingress that would otherwise bypass the website route's validation and rate limits.
 
 ## Base44 CLI status
 
@@ -61,7 +67,11 @@ After the entity push, the local quote API still receives this Base44 SDK error 
 403: This app is not yet available. Please check back later.
 ```
 
-Until the Base44 app is made available/published for SDK access, quote submissions with `BASE44_APP_ID` set will return `502` from `/api/quote`. Without `BASE44_APP_ID`, the route still validates and logs submissions with `stored: false`.
+Until a private server-to-server Base44 write path with atomic idempotency is available and
+verified, the route remains hard-disabled and `QUOTE_INTAKE_ENABLED` must stay `false`. The public
+SDK path is intentionally unable to create records after anonymous entity creation was disabled.
+Missing or incomplete configuration returns a bounded `503`; it never logs customer PII or claims
+that a submission was stored.
 
 ## Validation performed
 
@@ -79,5 +89,11 @@ Next.js still emits a non-fatal SWC lockfile patch warning after build even thou
 ## Production notes
 
 - Add `BASE44_APP_ID` to Vercel before expecting quote records to be stored.
-- Confirm the Base44 app is available for SDK access before testing production submissions.
+- Provision an HTTPS Upstash Redis database and set `UPSTASH_REDIS_REST_URL` and
+  `UPSTASH_REDIS_REST_TOKEN`.
+- Generate a unique `QUOTE_FINGERPRINT_SECRET` of at least 32 bytes in the deployment secret
+  manager. Do not reuse it for any other site.
+- Confirm a private Base44 write adapter that does not reopen anonymous entity creation.
+- Run a protected synthetic persistence and replay test before setting
+  `QUOTE_INTAKE_ENABLED=true`.
 - Confirm the intended admin users in Base44 before relying on the admin-only read/update/delete rules.
